@@ -1,0 +1,92 @@
+.root {
+  @apply relative flex justify-center items-center bg-white text-black px-4 py-6 z-50;
+
+  @screen lg {
+    @apply p-[3.25rem]
+  }
+
+  .gallery-toggle {
+    @apply flex-1;
+
+    & > div {
+      @apply hidden justify-start items-center text-xl;
+
+      @screen lg {
+        @apply flex;
+      }
+      
+      a {
+        @apply flex justify-center items-center;
+
+        span {
+          @apply text-sm mr-2;
+        }
+      }
+
+      & > span {
+        @apply mx-3;
+      }
+    }
+  }
+
+  .logo {
+    @apply h-4 relative z-20;
+
+    svg {
+      height: 100%;
+      width: auto;
+    }
+
+    @screen lg {
+      @apply h-6;
+    }
+  }
+
+  .nav {
+    @apply hidden flex-1 justify-end items-center;
+
+    a {
+      @apply text-xl ml-[4.6875vw];
+
+      &:first-of-type {
+        @apply ml-0;
+      }
+
+      &:hover {
+        @apply underline;
+      }
+    }
+
+    @screen lg {
+      @apply flex;
+    }
+  }
+
+  .mobile-nav {
+    @apply fixed flex justify-center w-screen h-screen inset-0 px-4 py-6 bg-black z-10;
+
+    nav {
+      @apply flex flex-col justify-center items-center;
+
+      a {
+        @apply text-[2rem] my-2;
+      }
+    }
+
+    p {
+      @apply absolute text-center inset-x-0 bottom-0 px-4 py-6;
+    }
+  }
+
+  .mobile-toggle-button {
+    @apply flex-1 flex justify-end items-center;
+
+    @screen lg {
+      @apply hidden;
+    }
+
+    button {
+      @apply block relative text-2xl z-20;
+    }
+  }
+}
