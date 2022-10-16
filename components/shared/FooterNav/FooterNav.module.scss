@@ -1,0 +1,56 @@
+.root {
+  @apply flex flex-col bg-black text-white py-16;
+
+  @screen lg {
+    @apply flex-row justify-center items-center px-[3.25rem];
+  }
+
+  .nav {
+    @apply mb-16;
+
+    @screen lg {
+      @apply flex-1 mb-0 order-3;
+    }
+
+    nav {
+      @apply flex flex-col justify-center items-center text-xl;
+
+      @screen lg {
+        @apply flex-row justify-end;
+      }
+
+      a {
+        @apply mb-6;
+
+        @screen lg {
+          @apply mb-0  mr-[4.6875vw] hover:underline;
+
+          &:last-of-type {
+            @apply mr-0;
+          }
+        }
+      }
+    }
+  }
+
+  .logo {
+    @apply flex justify-center items-center h-5 mb-6;
+
+    @screen lg {
+      @apply mb-0 order-2;
+    }
+
+    svg {
+      height: 100%;
+      width: auto;
+    }
+  }
+
+  .legal {
+    @apply flex justify-center items-center text-sm;
+
+    @screen lg {
+      @apply flex-1 justify-start order-1;
+    }
+  }
+}

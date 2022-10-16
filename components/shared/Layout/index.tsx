@@ -1,5 +1,7 @@
 import React, { ReactNode } from 'react'
+
 import HeaderNav from '@components/shared/HeaderNav'
+import FooterNav from '@components/shared/FooterNav'
 
 type TLayoutProps = {
   children: ReactNode
@@ -10,7 +12,7 @@ function Layout({ children }: TLayoutProps) {
     <>
       <HeaderNav />
       <div>{children}</div>
-      <p>After</p>
+      <FooterNav />
     </>
   )
 }

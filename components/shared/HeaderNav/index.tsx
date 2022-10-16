@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 
 import TextLogo from '@components/shared/TextLogo'
 import Icon from '@components/shared/Icon'
-import { DesktopNavLinks, MobileNavLinks } from './nav-links'
+import { DesktopHeaderNavLinks, MobileHeaderNavLinks } from '@constants/nav-links'
 
 import styles from './HeaderNav.module.scss'
 import variables from '@styles/variables.module.scss'
@@ -27,7 +27,7 @@ function HeaderNav() {
       </div>
 
       <nav className={styles.nav}>
-        {DesktopNavLinks.map((link, index) => (
+        {DesktopHeaderNavLinks.map((link, index) => (
           <a key={index} href={link.href}>{link.label}</a>
         ))}
       </nav>
@@ -42,17 +42,14 @@ function HeaderNav() {
             exit={{ opacity: 0 }}
           >
             <nav>
-              {MobileNavLinks.map((link, index) => (
-                <motion.a
+              {MobileHeaderNavLinks.map((link, index) => (
+                <a
                   key={index}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  initial={{ translateY: 10 * (index + 1) }}
-                  animate={{ translateY: 0 }}
-                  exit={{ translateY: 10 * (index + 1) }}
                 >
                   {link.label}
-                </motion.a>
+                </a>
               ))}
             </nav>
             <p>© Lazor Office Inc. {new Date().getFullYear()}</p>
