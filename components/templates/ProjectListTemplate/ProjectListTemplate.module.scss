@@ -1,0 +1,14 @@
+.root {
+
+  h1 {
+    @apply px-5 pt-5 pb-10 text-center font-light text-5xl;
+  }
+  
+  .filter-bar {
+    @apply flex items-center justify-between px-6 py-2 border-y text-lg;
+  }
+
+  .list-container {
+    @apply px-5;
+  }
+}
