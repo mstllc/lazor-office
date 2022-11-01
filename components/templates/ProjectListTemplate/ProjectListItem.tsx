@@ -22,7 +22,7 @@ function ProjectListItem({ project, index }: TProps) {
         alt=""
       />
       <p>{`${index + 1}`.padStart(2, '0')}</p>
-      <p>{project.fields.projectName}</p>
+      <p>{project.fields.projectName} - {project.fields.location}</p>
       <p>{projectCategoryTitle(project.fields.projectCategory)}</p>
       <p>{project.fields.year}</p>
     </div>

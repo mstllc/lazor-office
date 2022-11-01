@@ -5,6 +5,7 @@ export interface TypeProjectFields {
     projectCategory: "cabin" | "commercial" | "home";
     mainImage: Contentful.Asset;
     year: Contentful.EntryFields.Integer;
+    location: Contentful.EntryFields.Symbol;
 }
 
 export type TypeProject = Contentful.Entry<TypeProjectFields>;
