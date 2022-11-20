@@ -1,7 +1,7 @@
 import * as Contentful from 'contentful'
 import config from '@config'
 
-import { TypeProjectsListFields, TypeProjectFields } from './types'
+import { TypeProjectsListFields } from './types'
 
 const client = Contentful.createClient({
   space: config.CONTENTFUL_SPACE_ID,
@@ -9,7 +9,7 @@ const client = Contentful.createClient({
 })
 
 export const getProjectsList = async () => {
-  const res = await client.withoutUnresolvableLinks.getEntries<TypeProjectsListFields>({ content_type: 'projectsList' })
+  const res = await client.withoutUnresolvableLinks.getEntries<TypeProjectsListFields>({ content_type: 'projectsList', include: 10 })
 
   return res.items[0]
 }

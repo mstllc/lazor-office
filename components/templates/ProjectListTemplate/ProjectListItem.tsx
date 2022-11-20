@@ -1,7 +1,6 @@
 import { TypeProjectFields } from '@services/contentful/types'
 import { EntryWithLinkResolutionAndWithoutUnresolvableLinks } from 'contentful'
 import React from 'react'
-import Image from 'next/image'
 import { projectCategoryTitle } from '@utils/formatters'
 
 import styles from './ProjectListItem.module.scss'
@@ -12,19 +11,20 @@ type TProps = {
 }
 
 function ProjectListItem({ project, index }: TProps) {
-  console.log(project.fields.mainImage!.fields.file!)
+  const imageFile = project.fields.heroImage!.fields.image!.fields.file!
+  const crop = project.fields.heroImage!.fields.projectListCrop as { width: number, height: number }
+  const cropWidth = Math.round(imageFile.details.image!.width * crop.width)
+  const cropHeight = Math.round(imageFile.details.image!.height * crop.height)
+
+  console.log(imageFile, project.fields.heroImage!.fields.projectListCrop)
+
   return (
     <div className={styles.root}>
-      <Image
-        src={`https:${project.fields.mainImage!.fields.file!.url}`}
-        width={project.fields.mainImage!.fields.file!.details.image!.width}
-        height={project.fields.mainImage!.fields.file!.details.image!.height}
-        alt=""
-      />
-      <p>{`${index + 1}`.padStart(2, '0')}</p>
-      <p>{project.fields.projectName} - {project.fields.location}</p>
-      <p>{projectCategoryTitle(project.fields.projectCategory)}</p>
-      <p>{project.fields.year}</p>
+      <img className={styles.image} src={`https:${imageFile.url}?fit=crop&f=center&w=${cropWidth}&h=${cropHeight}`} alt={project.fields.heroImage!.fields.title} />
+      <p className={styles.index}>{`${index + 1}`.padStart(2, '0')}</p>
+      <p className={styles.name}>{project.fields.projectName} - {project.fields.location}</p>
+      <p className={styles.category}>{projectCategoryTitle(project.fields.projectCategory)}</p>
+      <p className={styles.year}>{project.fields.year}</p>
     </div>
   )
 }

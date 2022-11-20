@@ -1,9 +1,10 @@
 import * as Contentful from "contentful";
+import { TypeHeroImageWithCropsFields } from "./TypeHeroImageWithCrops";
 
 export interface TypeProjectFields {
     projectName: Contentful.EntryFields.Symbol;
+    heroImage: Contentful.Entry<TypeHeroImageWithCropsFields>;
     projectCategory: "cabin" | "commercial" | "home";
-    mainImage: Contentful.Asset;
     year: Contentful.EntryFields.Integer;
     location: Contentful.EntryFields.Symbol;
 }

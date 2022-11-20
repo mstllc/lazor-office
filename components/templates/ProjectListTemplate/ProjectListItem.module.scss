@@ -1,7 +1,28 @@
 .root {
-  @apply py-8 border-t;
+  @apply flex flex-col py-8 border-t;
 
   &:first-of-type {
     @apply border-0;
+  }
+
+  .image {
+    max-height: 220px;
+    @apply mb-2 mr-auto;
+  }
+
+  @screen lg {
+    @apply flex-row items-end;
+
+    .image {
+      @apply mr-6;
+    }
+
+    .index {
+      @apply flex-1;
+    }
+
+    .year, .category {
+      @apply ml-16;
+    }
   }
 }

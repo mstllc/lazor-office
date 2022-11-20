@@ -1,0 +1,31 @@
+.root {
+  .header {
+    h1 {
+      @apply px-5 pt-5 pb-10 text-center font-light text-5xl;
+    }
+  }
+
+  @screen lg {
+    @apply relative text-xl;
+
+    .header {
+      @apply py-16;
+
+      h1 {
+        @apply p-0 text-8xl my-10;
+      }
+    }
+
+    .scroll-container {
+      @apply absolute top-0 left-0;
+    }
+
+    .grid-container {
+      @apply absolute top-0 left-0;
+    }
+
+    .footer {
+      @apply hidden;
+    }
+  }
+}

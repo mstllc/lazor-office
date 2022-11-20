@@ -1,0 +1,57 @@
+.root {
+  @apply flex flex-col mb-6;
+
+  .image {
+    @apply mb-2;
+    min-height: 200px;
+    object-fit: cover;
+  }
+
+  .details {
+    @apply flex flex-row;
+
+    .name {
+      @apply ml-auto;
+    }
+  }
+
+  &:nth-child(odd) {
+    @apply pr-16;
+
+    .image {
+      object-position: right center;
+    }
+
+    .details {
+      @apply pl-14;
+    }
+  }
+
+  &:nth-child(even) {
+    @apply pl-14;
+
+    .image {
+      object-position: left center;
+    }
+
+    .details {
+      @apply pr-16;
+    }
+  }
+
+  @screen lg {
+    @apply absolute;
+
+    &:nth-child(odd), &:nth-child(even) {
+      @apply p-0;
+
+      .image {
+        min-height: unset;
+      }
+
+      .details {
+        @apply p-0;
+      }
+    }
+  }
+}

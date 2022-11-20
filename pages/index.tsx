@@ -1,6 +1,7 @@
 import type { GetStaticProps, NextPage } from 'next'
 
 import ProjectListTemplate from '@components/templates/ProjectListTemplate'
+import ProjectGridTemplate from '@components/templates/ProjectGridTemplate'
 
 import * as contentful from '@services/contentful'
 import { EntryWithLinkResolutionAndWithoutUnresolvableLinks } from 'contentful'
@@ -11,7 +12,7 @@ type TProps = {
 }
 
 const Home: NextPage<TProps> = ({ projectsList }) => {
-  return <ProjectListTemplate projectsList={projectsList} />
+  return <ProjectGridTemplate projectsList={projectsList} />
 }
 
 export default Home
