@@ -12,9 +12,15 @@ import styles from './ProjectListTemplate.module.scss'
 
 type TProps = {
   projectsList: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeProjectsListFields>
+  categoryCounts: {
+    all: number
+    home: number
+    cabin: number
+    commercial: number
+  }
 }
 
-function ProjectListTemplate({ projectsList }: TProps) {
+function ProjectListTemplate({ projectsList, categoryCounts }: TProps) {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
   const router = useRouter()
 
@@ -42,9 +48,9 @@ function ProjectListTemplate({ projectsList }: TProps) {
         <motion.div className={styles['filter-menu']} animate={{ height: mobileFilterOpen ? 'auto' : 0 }} initial={false}>
           <div className={styles['filter-options']}>
             <a href="#" onClick={(e) => onFilterClick(e, 'all')}>All</a>
-            <a href="#" onClick={(e) => onFilterClick(e, 'home')}>Homes<sup>23</sup></a>
-            <a href="#" onClick={(e) => onFilterClick(e, 'cabin')}>Cabins<sup>12</sup></a>
-            <a href="#" onClick={(e) => onFilterClick(e, 'commercial')}>Commercial<sup>6</sup></a>
+            <a href="#" onClick={(e) => onFilterClick(e, 'home')}>Homes<sup>{categoryCounts.home}</sup></a>
+            <a href="#" onClick={(e) => onFilterClick(e, 'cabin')}>Cabins<sup>{categoryCounts.cabin}</sup></a>
+            <a href="#" onClick={(e) => onFilterClick(e, 'commercial')}>Commercial<sup>{categoryCounts.commercial}</sup></a>
           </div>
           <a className={styles['view-map']} href="#" onClick={() => { }}>View on a Map</a>
         </motion.div>

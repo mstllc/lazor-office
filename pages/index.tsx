@@ -17,8 +17,8 @@ type TProps = {
 
 const Home: NextPage<TProps> = ({ projectsList }) => {
   const router = useRouter()
-  const params = new URLSearchParams(router.asPath.split('?').pop())
-  const category = params.get('category')
+  const params = Object.fromEntries(new URLSearchParams(router.asPath.includes('?') ? router.asPath.split('?').pop() : ''))
+  const category = params.category
   const { mode, nextMode, transitioning, transitioningIn, transitionInComplete } = useProjectLayout()
 
   const filteredProjectsList = useMemo(() => {
@@ -26,6 +26,7 @@ const Home: NextPage<TProps> = ({ projectsList }) => {
     if (!category) {
       projects = projectsList.fields.projects!.filter(project => project.fields.showOnHome)
     } else {
+
       switch (category) {
         case 'home':
           projects = projectsList.fields.projects!.filter(project => project.fields.projectCategory === 'home')
@@ -48,6 +49,32 @@ const Home: NextPage<TProps> = ({ projectsList }) => {
     return filtered
   }, [category, projectsList])
 
+  const categoryCounts = useMemo(() => {
+    const counts = {
+      all: 0,
+      home: 0,
+      cabin: 0,
+      commercial: 0
+    }
+
+    for (const project of projectsList.fields.projects!) {
+      counts.all++
+      switch (project.fields.projectCategory) {
+        case 'home':
+          counts.home++
+          break
+        case 'cabin':
+          counts.cabin++
+          break
+        case 'commercial':
+          counts.commercial++
+          break
+      }
+    }
+
+    return counts
+  }, [projectsList])
+
   return (
     <div className="relative">
       {(mode === 'grid' || transitioning) &&
@@ -63,7 +90,7 @@ const Home: NextPage<TProps> = ({ projectsList }) => {
           initial={{ opacity: transitioning && nextMode === 'list' ? 0 : 1 }}
           onAnimationComplete={transitionInComplete}
         >
-          <ProjectListTemplate projectsList={filteredProjectsList} />
+          <ProjectListTemplate projectsList={filteredProjectsList} categoryCounts={categoryCounts} />
         </motion.div>
       }
     </div>

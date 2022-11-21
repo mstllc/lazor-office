@@ -33,9 +33,9 @@ type TProps = {
 
 function ProjectLayoutContextProvider({ children }: TProps) {
   const router = useRouter()
-  const params = new URLSearchParams(router.asPath.split('?').pop())
-  const [mode, setMode] = useState<TProjectLayoutContextLayoutMode>(params.get('mode') === 'list' ? 'list' : 'grid')
-  const [nextMode, setNextMode] = useState<TProjectLayoutContextLayoutMode | undefined>(params.get('mode') === 'list' ? 'list' : 'grid')
+  const params = Object.fromEntries(new URLSearchParams(router.asPath.includes('?') ? router.asPath.split('?').pop() : ''))
+  const [mode, setMode] = useState<TProjectLayoutContextLayoutMode>(params.mode === 'list' ? 'list' : 'grid')
+  const [nextMode, setNextMode] = useState<TProjectLayoutContextLayoutMode | undefined>(params.mode === 'list' ? 'list' : 'grid')
   const [transitioningOut, setTransitioningOut] = useState(false)
   const [transitioningIn, setTransitioningIn] = useState(false)
 
@@ -79,9 +79,9 @@ function ProjectLayoutContextProvider({ children }: TProps) {
 
   useEffect(() => {
     if (router.query.mode !== mode) {
-      router.replace({ pathname: '/', query: { ...router.query, mode } }, undefined, { shallow: true })
+      router.replace({ pathname: '/', query: { ...params, ...router.query, mode } }, undefined, { shallow: true })
     }
-  }, [mode, router])
+  }, [mode, router, params])
 
   const value = {
     mode,
