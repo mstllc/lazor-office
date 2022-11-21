@@ -16,10 +16,8 @@ function ProjectListItem({ project, index }: TProps) {
   const cropWidth = Math.round(imageFile.details.image!.width * crop.width)
   const cropHeight = Math.round(imageFile.details.image!.height * crop.height)
 
-  console.log(imageFile, project.fields.heroImage!.fields.projectListCrop)
-
   return (
-    <div className={styles.root}>
+    <div className={styles.root} data-list-item data-id={project.sys.id}>
       <img className={styles.image} src={`https:${imageFile.url}?fit=crop&f=center&w=${cropWidth}&h=${cropHeight}`} alt={project.fields.heroImage!.fields.title} />
       <p className={styles.index}>{`${index + 1}`.padStart(2, '0')}</p>
       <p className={styles.name}>{project.fields.projectName} - {project.fields.location}</p>

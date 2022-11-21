@@ -15,7 +15,6 @@ type TProps = {
 
 function ProjectListTemplate({ projectsList }: TProps) {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
-  const [grid, setGrid] = useState(false)
 
   return (
     <div className={styles.root}>
@@ -35,7 +34,7 @@ function ProjectListTemplate({ projectsList }: TProps) {
             <a href="#" onClick={() => setMobileFilterOpen(false)}>Cabins<sup>12</sup></a>
             <a href="#" onClick={() => setMobileFilterOpen(false)}>Commercial<sup>6</sup></a>
           </div>
-          <a className={styles['view-map']} href="#" onClick={() => setGrid(true)}>View on a Map</a>
+          <a className={styles['view-map']} href="#" onClick={() => { }}>View on a Map</a>
         </motion.div>
       </div>
       <div className={styles['list-container']}>

@@ -1,5 +1,5 @@
 const NavLinks = [
-  { label: 'Projects', href: '#projects', desktopHeader: false, mobileHeader: true, desktopFooter: false, mobileFooter: true },
+  { label: 'Projects', href: '/#list', desktopHeader: false, mobileHeader: true, desktopFooter: false, mobileFooter: true },
   { label: 'Who We Are', href: '#who-we-are', desktopHeader: true, mobileHeader: true, desktopFooter: true, mobileFooter: true },
   { label: 'Recognition', href: '#recognition', desktopHeader: true, mobileHeader: true, desktopFooter: true, mobileFooter: true },
   { label: 'Contact Us', href: '#contact-us', desktopHeader: true, mobileHeader: true, desktopFooter: true, mobileFooter: true },

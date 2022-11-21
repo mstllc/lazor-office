@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { EntryWithLinkResolutionAndWithoutUnresolvableLinks } from 'contentful'
 import { useDebouncedCallback } from 'use-debounce'
-import { motion } from 'framer-motion'
+import { motion, useAnimationControls } from 'framer-motion'
 
 import { TypeProjectFields, TypeProjectsListFields } from '@services/contentful/types'
 import ProjectGridItem from './ProjectGridItem'
@@ -9,6 +9,7 @@ import FooterNav from '@components/shared/FooterNav'
 import { useBreakpoint } from '@utils/tailwind'
 
 import styles from './ProjectGridTemplate.module.scss'
+import { useProjectLayout } from '@components/contexts/ProjectLayoutContext'
 
 const DEFAULT_ITEM_VW_SCALE = 0.55
 const DEFAULT_H_GAP = 3
@@ -44,6 +45,8 @@ function ProjectGridTemplate({ projectsList }: TProps) {
   const [gridHeight, setGridHeight] = useState(0)
   const [grid1Offset, setGrid1Offset] = useState(0)
   const [grid2Offset, setGrid2Offset] = useState(0)
+  const { mode, nextMode, transitioning, transitioningOut, transitioningIn, transitionOutComplete, transitionInComplete } = useProjectLayout()
+  const fadeControls = useAnimationControls()
 
   const onWheel = useCallback((e: WheelEvent) => {
     const deltaVW = e.deltaY / window.innerWidth * 100
@@ -84,14 +87,14 @@ function ProjectGridTemplate({ projectsList }: TProps) {
   }, [])
 
   useEffect(() => {
-    if (breakpoint) {
+    if (breakpoint && !transitioning) {
       window.addEventListener('wheel', onWheel)
     }
 
     return () => {
       window.removeEventListener('wheel', onWheel)
     }
-  }, [breakpoint, onWheel])
+  }, [breakpoint, onWheel, transitioning])
 
   const calculateGridLayout = useCallback(() => {
     const headerOffset = headerRef.current!.offsetTop + headerRef.current!.offsetHeight
@@ -166,11 +169,34 @@ function ProjectGridTemplate({ projectsList }: TProps) {
     calculateGridLayout()
   }, [calculateGridLayout])
 
+  useEffect(() => {
+    if (!transitioningOut) return
+
+    if (nextMode === 'list') {
+      fadeControls.set({ opacity: 1 })
+      fadeControls.start({ opacity: 0 })
+    }
+  }, [transitioningOut, nextMode, fadeControls])
+
+  useEffect(() => {
+    if (!transitioningIn) return
+
+    if (nextMode === 'grid') {
+      fadeControls.set({ opacity: 0 })
+      fadeControls.start({ opacity: 1 })
+    }
+  }, [transitioningIn, nextMode, fadeControls])
+
   return (
     <div className={styles.root}>
-      <div className={styles.header} ref={headerRef}>
+      <motion.div
+        className={styles.header}
+        ref={headerRef}
+        animate={fadeControls}
+        initial={{ opacity: mode === 'list' ? 0 : 1 }}
+      >
         <h1>Architecture in concert<br />with nature–</h1>
-      </div>
+      </motion.div>
       <motion.div className={styles['scroll-container']} animate={{ y: breakpoint ? `${scrollY}vw` : 0 }} transition={{ ease: 'easeOut' }}>
         <div className={styles['grid-container']} style={{ transform: breakpoint ? `translateY(${grid1Offset}vw)` : 'none' }}>
           {gridLayout.map(({ project, index, cropWidth, cropHeight, ...style }) => (

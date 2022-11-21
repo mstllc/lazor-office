@@ -17,12 +17,14 @@
     "next": "12.3.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "scroll-lock": "^2.1.5",
     "use-debounce": "^8.0.4"
   },
   "devDependencies": {
     "@types/node": "18.8.5",
     "@types/react": "18.0.21",
     "@types/react-dom": "18.0.6",
+    "@types/scroll-lock": "^2.1.0",
     "autoprefixer": "^10.4.12",
     "cf-content-types-generator": "^2.2.2",
     "dotenv": "^16.0.3",

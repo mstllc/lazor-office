@@ -5,25 +5,28 @@ import { motion, AnimatePresence } from 'framer-motion'
 import TextLogo from '@components/shared/TextLogo'
 import Icon from '@components/shared/Icon'
 import { DesktopHeaderNavLinks, MobileHeaderNavLinks } from '@constants/nav-links'
+import { useProjectLayout } from '@components/contexts/ProjectLayoutContext'
 
 import styles from './HeaderNav.module.scss'
 import variables from '@styles/variables.module.scss'
 
 function HeaderNav() {
   const [open, setOpen] = useState(false)
+  const { nextMode, setMode } = useProjectLayout()
 
   return (
     <motion.div className={styles.root} animate={{ color: open ? variables.white : variables.black }}>
       <div className={styles['gallery-toggle']}>
         <div>
-          <a href="#"><span><Icon name="Gallery" /></span>Gallery View</a>
+          <a href="#grid" className={nextMode === 'grid' || !nextMode ? 'underline' : undefined} onClick={() => setMode('grid')}><span><Icon name="Gallery" /></span>Gallery View</a>
           <span>/</span>
-          <a href="#"><span><Icon name="List" /></span>List View</a>
+          <a href="#list" className={nextMode === 'list' ? 'underline' : undefined} onClick={() => setMode('list')}><span><Icon name="List" /></span>List View</a>
         </div>
       </div>
 
       <div className={styles.logo}>
-        <Link href="/"><a onClick={() => setOpen(false)}><TextLogo /></a></Link>
+        <Link href="/"><a className="lg:hidden" onClick={() => { setMode('grid', true); setOpen(false); }}><TextLogo /></a></Link>
+        <Link href="/"><a className="hidden lg:inline"><TextLogo /></a></Link>
       </div>
 
       <nav className={styles.nav}>
@@ -46,7 +49,10 @@ function HeaderNav() {
                 <a
                   key={index}
                   href={link.href}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setMode('list', true)
+                    setOpen(false)
+                  }}
                 >
                   {link.label}
                 </a>
