@@ -87,14 +87,14 @@ function ProjectGridTemplate({ projectsList }: TProps) {
   }, [])
 
   useEffect(() => {
-    if (breakpoint && !transitioning) {
+    if (breakpoint && !transitioning && vwToVh(gridHeight) > 100) {
       window.addEventListener('wheel', onWheel)
     }
 
     return () => {
       window.removeEventListener('wheel', onWheel)
     }
-  }, [breakpoint, onWheel, transitioning])
+  }, [breakpoint, onWheel, transitioning, gridHeight])
 
   const calculateGridLayout = useCallback(() => {
     const headerOffset = headerRef.current!.offsetTop + headerRef.current!.offsetHeight

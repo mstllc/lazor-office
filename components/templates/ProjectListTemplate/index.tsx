@@ -3,7 +3,8 @@ import Icon from '@components/shared/Icon'
 import { TypeProjectsListFields } from '@services/contentful/types'
 import { EntryWithLinkResolutionAndWithoutUnresolvableLinks } from 'contentful'
 import { motion } from 'framer-motion'
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useCallback, useState } from 'react'
 
 import ProjectListItem from './ProjectListItem'
 
@@ -15,6 +16,17 @@ type TProps = {
 
 function ProjectListTemplate({ projectsList }: TProps) {
   const [mobileFilterOpen, setMobileFilterOpen] = useState(false)
+  const router = useRouter()
+
+  const onFilterClick = useCallback((e: React.MouseEvent, category: string) => {
+    e.preventDefault()
+
+    if (router.query.category !== category) {
+      router.replace({ pathname: '/', query: { ...router.query, category } }, undefined, { shallow: true })
+    }
+
+    setMobileFilterOpen(false)
+  }, [router])
 
   return (
     <div className={styles.root}>
@@ -27,12 +39,12 @@ function ProjectListTemplate({ projectsList }: TProps) {
             <Icon name="DownCaret" />
           </motion.div>
         </button>
-        <motion.div className={styles['filter-menu']} animate={{ height: mobileFilterOpen ? 'auto' : 0 }}>
+        <motion.div className={styles['filter-menu']} animate={{ height: mobileFilterOpen ? 'auto' : 0 }} initial={false}>
           <div className={styles['filter-options']}>
-            <a href="#" onClick={() => setMobileFilterOpen(false)}>All</a>
-            <a href="#" onClick={() => setMobileFilterOpen(false)}>Homes<sup>23</sup></a>
-            <a href="#" onClick={() => setMobileFilterOpen(false)}>Cabins<sup>12</sup></a>
-            <a href="#" onClick={() => setMobileFilterOpen(false)}>Commercial<sup>6</sup></a>
+            <a href="#" onClick={(e) => onFilterClick(e, 'all')}>All</a>
+            <a href="#" onClick={(e) => onFilterClick(e, 'home')}>Homes<sup>23</sup></a>
+            <a href="#" onClick={(e) => onFilterClick(e, 'cabin')}>Cabins<sup>12</sup></a>
+            <a href="#" onClick={(e) => onFilterClick(e, 'commercial')}>Commercial<sup>6</sup></a>
           </div>
           <a className={styles['view-map']} href="#" onClick={() => { }}>View on a Map</a>
         </motion.div>

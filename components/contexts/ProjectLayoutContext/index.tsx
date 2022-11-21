@@ -1,7 +1,8 @@
+import { useRouter } from 'next/router'
 import React, { createContext, useContext, useCallback, useState, useEffect } from 'react'
 import { disablePageScroll, enablePageScroll } from 'scroll-lock'
 
-type TProjectLayoutContextLayoutMode = 'grid' | 'list'
+export type TProjectLayoutContextLayoutMode = 'grid' | 'list'
 
 type TProjectLayoutContextValue = {
   mode: TProjectLayoutContextLayoutMode
@@ -31,8 +32,10 @@ type TProps = {
 }
 
 function ProjectLayoutContextProvider({ children }: TProps) {
-  const [mode, setMode] = useState<TProjectLayoutContextLayoutMode>(defaultProjectLayoutContextValue.mode)
-  const [nextMode, setNextMode] = useState<TProjectLayoutContextLayoutMode | undefined>(defaultProjectLayoutContextValue.nextMode)
+  const router = useRouter()
+  const params = new URLSearchParams(router.asPath.split('?').pop())
+  const [mode, setMode] = useState<TProjectLayoutContextLayoutMode>(params.get('mode') === 'list' ? 'list' : 'grid')
+  const [nextMode, setNextMode] = useState<TProjectLayoutContextLayoutMode | undefined>(params.get('mode') === 'list' ? 'list' : 'grid')
   const [transitioningOut, setTransitioningOut] = useState(false)
   const [transitioningIn, setTransitioningIn] = useState(false)
 
@@ -73,6 +76,12 @@ function ProjectLayoutContextProvider({ children }: TProps) {
       enablePageScroll()
     }
   }, [transitioning])
+
+  useEffect(() => {
+    if (router.query.mode !== mode) {
+      router.replace({ pathname: '/', query: { ...router.query, mode } }, undefined, { shallow: true })
+    }
+  }, [mode, router])
 
   const value = {
     mode,
