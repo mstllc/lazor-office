@@ -14,7 +14,7 @@ const richTextRenderOptions: Options = {
       const file = node.data.target.fields.file
       return (
         <Image
-          src={`https://${file.url}`}
+          src={`https:${file.url}`}
           alt={node.data.target.fields.title}
           width={file.details.image.width}
           height={file.details.image.height}
@@ -80,7 +80,7 @@ function ProjectHotspotsBlock({ block }: TProps) {
       <div className={styles['image-wrapper']}>
         <div className={styles.image}>
           <Image
-            src={`https://${block.fields.leftImage.fields.file!.url}`}
+            src={`https:${block.fields.leftImage.fields.file!.url}`}
             alt={block.fields.leftImage.fields.title}
             width={block.fields.leftImage.fields.file!.details.image?.width}
             height={block.fields.leftImage.fields.file!.details.image?.height}
@@ -110,7 +110,7 @@ function ProjectHotspotsBlock({ block }: TProps) {
       <div className={styles['image-wrapper']}>
         <div className={styles.image}>
           <Image
-            src={`https://${block.fields.rightImage.fields.file!.url}`}
+            src={`https:${block.fields.rightImage.fields.file!.url}`}
             alt={block.fields.rightImage.fields.title}
             width={block.fields.rightImage.fields.file!.details.image?.width}
             height={block.fields.rightImage.fields.file!.details.image?.height}

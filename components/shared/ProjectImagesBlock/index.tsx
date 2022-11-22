@@ -30,7 +30,7 @@ function ProjectImagesBlock({ block }: TProps) {
       <div className={styles['single-root']}>
         <div className={styles.image}>
           <Image
-            src={`https://${block.fields.images[0].fields.file!.url}`}
+            src={`https:${block.fields.images[0].fields.file!.url}`}
             alt={block.fields.images[0].fields.title}
             width={block.fields.images[0].fields.file!.details.image?.width}
             height={block.fields.images[0].fields.file!.details.image?.height}
@@ -60,7 +60,7 @@ function ProjectImagesBlock({ block }: TProps) {
           {block.fields.images.map(field => (
             <div key={field.sys.id} className={styles.slide}>
               <Image
-                src={`https://${field.fields.file!.url}`}
+                src={`https:${field.fields.file!.url}`}
                 alt={field.fields.title}
                 width={field.fields.file!.details.image?.width}
                 height={field.fields.file!.details.image?.height}

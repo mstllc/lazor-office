@@ -19,7 +19,6 @@ type TProps = {
 }
 
 function ProjectTemplate({ slug, project, projectsList }: TProps) {
-  console.log(`https:${project.fields.heroImage?.fields.image?.fields.file?.url}`)
   return (
     <div className={styles.root}>
       <Image

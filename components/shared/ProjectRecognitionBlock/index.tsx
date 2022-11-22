@@ -20,7 +20,7 @@ function ProjectRecognitionBlock({ block }: TProps) {
           return (
             <div key={recognition.sys.id} className={styles.recognition}>
               <Image
-                src={`https://${image.fields.file!.url}`}
+                src={`https:${image.fields.file!.url}`}
                 alt={image.fields.title}
                 width={image.fields.file!.details.image?.width}
                 height={image.fields.file!.details.image?.height}
