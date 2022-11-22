@@ -1,0 +1,13 @@
+.root {
+  @apply px-12 pt-10 pb-16 text-center;
+
+  h3.quote {
+    @apply font-light text-4xl;
+  }
+
+  p.attribution {
+    @apply mt-10 text-2xl;
+  }
+}
+
+

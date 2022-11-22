@@ -1,3 +1,9 @@
 export type { TypeHeroImageWithCrops, TypeHeroImageWithCropsFields } from "./TypeHeroImageWithCrops";
 export type { TypeProject, TypeProjectFields } from "./TypeProject";
+export type { TypeProjectDetails, TypeProjectDetailsFields } from "./TypeProjectDetails";
+export type { TypeProjectHotspotsBlock, TypeProjectHotspotsBlockFields } from "./TypeProjectHotspotsBlock";
+export type { TypeProjectImagesBlock, TypeProjectImagesBlockFields } from "./TypeProjectImagesBlock";
+export type { TypeProjectQuoteBlock, TypeProjectQuoteBlockFields } from "./TypeProjectQuoteBlock";
+export type { TypeProjectRecognitionBlock, TypeProjectRecognitionBlockFields } from "./TypeProjectRecognitionBlock";
 export type { TypeProjectsList, TypeProjectsListFields } from "./TypeProjectsList";
+export type { TypeRecognition, TypeRecognitionFields } from "./TypeRecognition";

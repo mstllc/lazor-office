@@ -1,0 +1,17 @@
+.root {
+  @apply px-5 mb-10;
+  
+  h2 {
+    @apply mb-10;
+  }
+
+  .fields {
+    @apply flex flex-row flex-wrap;
+
+    .field {
+      @apply w-1/2 mb-4;
+    }
+  }
+}
+
+

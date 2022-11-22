@@ -1,0 +1,25 @@
+.root {
+  @apply px-5;
+
+  .container {
+    @apply flex flex-col items-center border-t border-black pt-10;
+
+    .stack {
+      position: relative;
+      width: 100%;
+
+      .project {
+        position: absolute;
+        width: 100%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    svg {
+      width: 56px;
+      height: 56px;
+    }
+  }
+}

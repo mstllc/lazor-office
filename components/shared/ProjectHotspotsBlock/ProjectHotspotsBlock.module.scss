@@ -1,0 +1,94 @@
+.root {
+  @apply flex flex-col mb-10;
+
+  .image-wrapper {
+    &:first-of-type {
+      @apply pr-16 mb-9;
+    }
+
+    &:last-of-type {
+      @apply pl-14;
+    }
+
+    .image {
+      @apply relative;
+
+      .hotspot {
+        @apply absolute block shadow-lg;
+        top: 50%;
+        left: 50%;
+        width: 44px;
+        height: 44px;
+        border-radius: 22px;
+        background: white;
+        transform: translate(-50%, -50%);
+
+        &:after {
+          @apply absolute block;
+          content: '';
+          top: 50%;
+          left: 50%;
+          width: 22px;
+          height: 22px;
+          border-radius: 11px;
+          background: black;
+          transform: translate(-50%, -50%);
+        }
+      }
+
+      .content {
+        @apply p-8 shadow-lg;
+        background: white;
+        max-width: 75vw;
+
+        .arrow,
+        .arrow::before {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          background: inherit;
+        }
+        
+        .arrow {
+          visibility: hidden;
+        }
+        
+        .arrow::before {
+          visibility: visible;
+          content: '';
+          transform: rotate(45deg);
+        }
+
+        &[data-popper-placement^='top'] > .arrow {
+          bottom: -4px;
+        }
+        
+        &[data-popper-placement^='bottom'] > .arrow {
+          top: -4px;
+        }
+        
+        &[data-popper-placement^='left'] > .arrow {
+          right: -4px;
+        }
+        
+        &[data-popper-placement^='right'] > .arrow {
+          left: -4px;
+        }
+
+        h6 {
+          @apply text-xl mb-4;
+        }
+
+        h6, p, img {
+          @apply mb-4;
+
+          &:last-child {
+            @apply mb-0;
+          }
+        }
+      }
+    }
+  }
+}
+
+

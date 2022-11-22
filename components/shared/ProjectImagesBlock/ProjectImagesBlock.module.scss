@@ -1,0 +1,50 @@
+.single-root {
+  @apply px-5 mb-10;
+
+  .content {
+    @apply mt-10;
+
+    h2 + p {
+      @apply mt-6;
+    }
+  }
+}
+
+.root {
+  @apply mb-10;
+  .slider {
+    @apply relative;
+
+    button {
+      &:first-of-type {
+        @apply absolute;
+        top: 50%;
+        left: 0;
+        z-index: 2;
+        transform: translateY(-50%);
+      }
+
+      &:last-of-type {
+        @apply absolute;
+        top: 50%;
+        right: 0;
+        z-index: 2;
+        transform: translateY(-50%);
+      }
+    }
+  }
+
+  .pagination {
+    @apply px-5 mt-4;
+  }
+
+  .content {
+    @apply px-5 mt-4;
+
+    h2 + p {
+      @apply mt-6;
+    }
+  }
+}
+
+

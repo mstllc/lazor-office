@@ -1,0 +1,13 @@
+.root {
+  @apply px-5 text-center mb-10;
+
+  .recognitions {
+    @apply flex flex-row flex-wrap mt-6;
+    
+    .recognition {
+      @apply w-1/2 px-6 mb-6;
+    }
+  }
+}
+
+

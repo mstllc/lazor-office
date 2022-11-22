@@ -78,7 +78,7 @@ function ProjectLayoutContextProvider({ children }: TProps) {
   }, [transitioning])
 
   useEffect(() => {
-    if (router.query.mode !== mode) {
+    if (router.pathname === '/' && router.query.mode !== mode) {
       router.replace({ pathname: '/', query: { ...params, ...router.query, mode } }, undefined, { shallow: true })
     }
   }, [mode, router, params])

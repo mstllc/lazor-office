@@ -37,11 +37,41 @@ function DownCaretIcon() {
   )
 }
 
+function UpCaretIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M21 15.995L20.0101 16.9849L12.005 8.9799L4 16.9849L3.01005 15.995L12.005 7L21 15.995Z" fill="currentColor" />
+    </svg>
+
+  )
+}
+
+function LeftCaretIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M15.995 3L16.9849 3.98995L8.9799 11.995L16.9849 20L15.995 20.9899L7 11.995L15.995 3Z" fill="currentColor" />
+    </svg>
+
+  )
+}
+
+function RightCaretIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path fillRule="evenodd" clipRule="evenodd" d="M7.98995 21L7 20.0101L15.005 12.005L7 4L7.98995 3.01005L16.9849 12.005L7.98995 21Z" fill="currentColor" />
+    </svg>
+
+  )
+}
+
 export const Icons = {
   Plus: PlusIcon,
   Gallery: GalleryIcon,
   List: ListIcon,
-  DownCaret: DownCaretIcon
+  DownCaret: DownCaretIcon,
+  UpCaret: UpCaretIcon,
+  LeftCaret: LeftCaretIcon,
+  RightCaret: RightCaretIcon
 }
 
 export type TIconName = keyof typeof Icons

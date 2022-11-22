@@ -1,0 +1,33 @@
+.root {
+  h1 {
+    @apply font-light text-4xl;
+  }
+
+  h2 {
+    @apply text-3xl;
+  }
+
+  h3 {
+    @apply text-2xl;
+  }
+
+  .header {
+    @apply px-5;
+
+    h1 {
+      &:first-of-type {
+        @apply text-left pr-5 mt-10;
+      }
+
+      &:last-of-type {
+        @apply text-right pl-5 mb-10;
+      }
+    }
+
+    .intro {
+      h3, p {
+        @apply mb-10;
+      }
+    }
+  }
+}
