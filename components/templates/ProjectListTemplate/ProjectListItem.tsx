@@ -4,6 +4,7 @@ import React from 'react'
 import { projectCategoryTitle } from '@utils/formatters'
 
 import styles from './ProjectListItem.module.scss'
+import Link from 'next/link'
 
 type TProps = {
   project: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeProjectFields>
@@ -18,7 +19,11 @@ function ProjectListItem({ project, index }: TProps) {
 
   return (
     <div className={styles.root} data-list-item data-id={project.sys.id}>
-      <img className={styles.image} src={`https:${imageFile.url}?fit=crop&f=center&w=${cropWidth}&h=${cropHeight}`} alt={project.fields.heroImage!.fields.title} />
+      <Link href={`/projects/${project.fields.slug}`}>
+        <a>
+          <img className={styles.image} src={`https:${imageFile.url}?fit=crop&f=center&w=${cropWidth}&h=${cropHeight}`} alt={project.fields.heroImage!.fields.title} />
+        </a>
+      </Link>
       <p className={styles.index}>{`${index + 1}`.padStart(2, '0')}</p>
       <p className={styles.name}>{project.fields.projectName} - {project.fields.location}</p>
       <p className={styles.category}>{projectCategoryTitle(project.fields.projectCategory)}</p>

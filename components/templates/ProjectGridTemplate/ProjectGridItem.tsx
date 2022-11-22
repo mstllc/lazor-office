@@ -5,6 +5,7 @@ import { motion, useAnimationControls, useInView } from 'framer-motion'
 
 import styles from './ProjectGridItem.module.scss'
 import { useProjectLayout } from '@components/contexts/ProjectLayoutContext'
+import Link from 'next/link'
 
 type TProps = {
   project: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeProjectFields>
@@ -81,15 +82,19 @@ function ProjectGridItem({ project, index, cropWidth, cropHeight, style }: TProp
 
   return (
     <div ref={rootRef} className={styles.root} style={style} data-grid-item data-id={project.sys.id}>
-      <motion.img
-        className={styles.image}
-        src={`https:${imageFile.url}?fit=crop&f=center&w=${cropWidth}&h=${cropHeight}`}
-        alt={project.fields.heroImage!.fields.title}
-        animate={imageControls}
-        initial={{ opacity: mode === 'list' ? 0 : 1 }}
-        transition={{ ease: 'easeInOut' }}
-        onAnimationComplete={onImageAnimationComplete}
-      />
+      <Link href={`/projects/${project.fields.slug}`}>
+        <a>
+          <motion.img
+            className={styles.image}
+            src={`https:${imageFile.url}?fit=crop&f=center&w=${cropWidth}&h=${cropHeight}`}
+            alt={project.fields.heroImage!.fields.title}
+            animate={imageControls}
+            initial={{ opacity: mode === 'list' ? 0 : 1 }}
+            transition={{ ease: 'easeInOut' }}
+            onAnimationComplete={onImageAnimationComplete}
+          />
+        </a>
+      </Link>
       <motion.div
         className={styles.details}
         animate={fadeControls}
