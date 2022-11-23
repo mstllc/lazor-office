@@ -6,6 +6,7 @@ import { motion, useAnimationControls, useInView } from 'framer-motion'
 import styles from './ProjectGridItem.module.scss'
 import { useProjectLayout } from '@components/contexts/ProjectLayoutContext'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 type TProps = {
   project: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeProjectFields>
@@ -16,12 +17,23 @@ type TProps = {
 }
 
 function ProjectGridItem({ project, index, cropWidth, cropHeight, style }: TProps) {
+  const router = useRouter()
   const imageFile = project.fields.heroImage!.fields.image!.fields.file!
   const rootRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(rootRef, { margin: '5% 0px 5% 0px' })
   const imageControls = useAnimationControls()
   const fadeControls = useAnimationControls()
-  const { mode, nextMode, transitioningOut, transitioningIn, transitionOutComplete, transitionInComplete } = useProjectLayout()
+  const { mode, nextMode, projectSlug, transitioning, transitioningOut, transitioningIn, transitionOutComplete, transitionInComplete, setProjectSlug, setMode } = useProjectLayout()
+
+  const onClick = useCallback((e: React.MouseEvent) => {
+    e.preventDefault()
+
+    if (!transitioning) {
+      console.log('here')
+      setProjectSlug(project.fields.slug)
+      setMode('project')
+    }
+  }, [transitioning, setProjectSlug, setMode, project])
 
   const onImageAnimationComplete = useCallback(() => {
     if (transitioningOut) {
@@ -38,14 +50,14 @@ function ProjectGridItem({ project, index, cropWidth, cropHeight, style }: TProp
   useEffect(() => {
     if (!transitioningOut) return
 
-    const gridItem = rootRef.current
-    const listItem = document.querySelector(`[data-list-item][data-id="${project.sys.id}"]`)
-    const gridItemImage = gridItem!.querySelector('img')
-    const listItemImage = listItem!.querySelector('img')
-    const gridRect = gridItemImage!.getBoundingClientRect()
-    const listRect = listItemImage!.getBoundingClientRect()
-
     if (nextMode === 'list') {
+      const gridItem = rootRef.current
+      const listItem = document.querySelector(`[data-list-item][data-id="${project.sys.id}"]`)
+      const gridItemImage = gridItem!.querySelector('img')
+      const listItemImage = listItem!.querySelector('img')
+      const gridRect = gridItemImage!.getBoundingClientRect()
+      const listRect = listItemImage!.getBoundingClientRect()
+
       const t = { x: listRect.x - gridRect.x, y: listRect.y - gridRect.y, scale: listRect.width / gridRect.width, opacity: 1 }
       if (t.scale !== 1) {
         imageControls.set({ x: 0, y: 0, scale: 1, opacity: 1 })
@@ -53,7 +65,6 @@ function ProjectGridItem({ project, index, cropWidth, cropHeight, style }: TProp
           imageControls.start(t)
         } else {
           imageControls.start({ x: 0, y: 0, scale: 1, opacity: 0 })
-          // imageControls.start(t)
         }
         fadeControls.set({ opacity: 1 })
         fadeControls.start({ opacity: 0 })
@@ -61,6 +72,13 @@ function ProjectGridItem({ project, index, cropWidth, cropHeight, style }: TProp
     }
 
     if (nextMode === 'grid') {
+      const gridItem = rootRef.current
+      const listItem = document.querySelector(`[data-list-item][data-id="${project.sys.id}"]`)
+      const gridItemImage = gridItem!.querySelector('img')
+      const listItemImage = listItem!.querySelector('img')
+      const gridRect = gridItemImage!.getBoundingClientRect()
+      const listRect = listItemImage!.getBoundingClientRect()
+
       const t = { x: listRect.x - gridRect.x, y: listRect.y - gridRect.y, scale: listRect.width / gridRect.width, opacity: 1 }
       if (t.scale !== 1) {
         imageControls.set(t)
@@ -69,7 +87,32 @@ function ProjectGridItem({ project, index, cropWidth, cropHeight, style }: TProp
         })
       }
     }
-  }, [transitioningOut, nextMode, imageControls, fadeControls, isInView, project.sys.id])
+
+    if (nextMode === 'project') {
+      if (projectSlug === project.fields.slug && isInView) {
+        const gridItem = rootRef.current
+        const gridItemImage = gridItem!.querySelector('img')
+        const projectImage = document.querySelector('[data-project-hero')
+        const gridRect = gridItemImage!.getBoundingClientRect()
+        const projectRect = projectImage!.getBoundingClientRect()
+        const imageFile = project.fields.heroImage!.fields.image!.fields.file!
+        const crop = project.fields.heroImage!.fields.projectListCrop as { width: number, height: number }
+        const scale = (crop.width * window.innerWidth) / gridRect.width
+        const gridCenter = [gridRect.x + (gridRect.width / 2), gridRect.y + (gridRect.height / 2)]
+        const projectCenter = [projectRect.x + (projectRect.width / 2), projectRect.y + (projectRect.height / 2)]
+        const difference = [projectCenter[0] - gridCenter[0], projectCenter[1] - gridCenter[1]]
+
+        imageControls.set({ x: 0, y: 0, scale: 1, opacity: 1 })
+        imageControls.start({ x: difference[0], y: difference[1], scale, opacity: 1, transformOrigin: 'center center' })
+      } else {
+        imageControls.set({ x: 0, y: 0, scale: 1, opacity: 1 })
+        imageControls.start({ x: 0, y: 0, scale: 1, opacity: 0 })
+      }
+
+      fadeControls.set({ opacity: 1 })
+      fadeControls.start({ opacity: 0 })
+    }
+  }, [transitioningOut, nextMode, projectSlug, imageControls, fadeControls, isInView, project])
 
   useEffect(() => {
     if (!transitioningIn) return
@@ -82,19 +125,17 @@ function ProjectGridItem({ project, index, cropWidth, cropHeight, style }: TProp
 
   return (
     <div ref={rootRef} className={styles.root} style={style} data-grid-item data-id={project.sys.id}>
-      <Link href={`/projects/${project.fields.slug}`}>
-        <a>
-          <motion.img
-            className={styles.image}
-            src={`https:${imageFile.url}?fit=crop&f=center&w=${cropWidth}&h=${cropHeight}`}
-            alt={project.fields.heroImage!.fields.title}
-            animate={imageControls}
-            initial={{ opacity: mode === 'list' ? 0 : 1 }}
-            transition={{ ease: 'easeInOut' }}
-            onAnimationComplete={onImageAnimationComplete}
-          />
-        </a>
-      </Link>
+      <a href={`/projects/${project.fields.slug}`} onClick={onClick}>
+        <motion.img
+          className={styles.image}
+          src={`https:${imageFile.url}?fit=crop&f=center&w=${cropWidth}&h=${cropHeight}`}
+          alt={project.fields.heroImage!.fields.title}
+          animate={imageControls}
+          initial={{ opacity: mode === 'list' ? 0 : 1 }}
+          transition={{ ease: 'easeInOut' }}
+          onAnimationComplete={onImageAnimationComplete}
+        />
+      </a>
       <motion.div
         className={styles.details}
         animate={fadeControls}

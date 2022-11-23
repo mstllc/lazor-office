@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { motion, AnimatePresence } from 'framer-motion'
 
@@ -9,23 +9,35 @@ import { TProjectLayoutContextLayoutMode, useProjectLayout } from '@components/c
 
 import styles from './HeaderNav.module.scss'
 import variables from '@styles/variables.module.scss'
+import { useRouter } from 'next/router'
 
 function HeaderNav() {
+  const router = useRouter()
   const [open, setOpen] = useState(false)
-  const { nextMode, setMode } = useProjectLayout()
+  const { mode, nextMode, setMode, transitioning } = useProjectLayout()
 
-  const onModeClick = useCallback((e: React.MouseEvent, mode: TProjectLayoutContextLayoutMode) => {
+  const onHomePage = useMemo(() => {
+    return router.pathname === '/'
+  }, [router])
+
+  const onModeClick = useCallback((e: React.MouseEvent, newMode: TProjectLayoutContextLayoutMode) => {
     e.preventDefault()
-    setMode(mode)
-  }, [setMode])
+
+    if (onHomePage && newMode !== mode) {
+      setMode(newMode)
+    } else {
+      setMode(newMode, true)
+      router.push(`/?mode=${newMode}`)
+    }
+  }, [mode, setMode, router, onHomePage])
 
   return (
     <motion.div className={styles.root} animate={{ color: open ? variables.white : variables.black }}>
       <div className={styles['gallery-toggle']}>
         <div>
-          <a href="#" className={nextMode === 'grid' || !nextMode ? 'underline' : undefined} onClick={(e) => onModeClick(e, 'grid')}><span><Icon name="Gallery" /></span>Gallery View</a>
+          <a href="#" className={onHomePage && mode === 'grid' && !transitioning ? 'underline' : undefined} onClick={(e) => onModeClick(e, 'grid')}><span><Icon name="Gallery" /></span>Gallery View</a>
           <span>/</span>
-          <a href="#" className={nextMode === 'list' ? 'underline' : undefined} onClick={(e) => onModeClick(e, 'list')}><span><Icon name="List" /></span>List View</a>
+          <a href="#" className={onHomePage && mode === 'list' && !transitioning ? 'underline' : undefined} onClick={(e) => onModeClick(e, 'list')}><span><Icon name="List" /></span>List View</a>
         </div>
       </div>
 

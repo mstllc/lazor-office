@@ -1,4 +1,9 @@
 .root {
+  .hero {
+    clip-path: inset(0%);
+    transition: clip-path 0.5s ease-out;
+  }
+
   h1 {
     @apply font-light text-4xl;
   }

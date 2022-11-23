@@ -13,20 +13,25 @@ import React from 'react'
 import styles from './ProjectTemplate.module.scss'
 
 type TProps = {
-  slug: string
   project: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeProjectFields>
   projectsList: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeProjectsListFields>
+  clip?: boolean
 }
 
-function ProjectTemplate({ slug, project, projectsList }: TProps) {
+function ProjectTemplate({ project, projectsList, clip }: TProps) {
+  const crop = project.fields.heroImage!.fields.projectListCrop as { width: number, height: number }
+
   return (
     <div className={styles.root}>
       <Image
+        className={styles.hero}
         src={`https:${project.fields.heroImage?.fields.image?.fields.file?.url}`}
         alt={project.fields.projectName}
         width={project.fields.heroImage?.fields.image?.fields.file?.details.image?.width}
         height={project.fields.heroImage?.fields.image?.fields.file?.details.image?.height}
         sizes="100vw"
+        data-project-hero
+        {...(clip && { style: { clipPath: `inset(${(100 - crop.height * 100) / 2}% ${(100 - crop.width * 100) / 2}%)` } })}
       />
 
       <div className={styles.header}>

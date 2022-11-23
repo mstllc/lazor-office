@@ -172,7 +172,7 @@ function ProjectGridTemplate({ projectsList }: TProps) {
   useEffect(() => {
     if (!transitioningOut) return
 
-    if (nextMode === 'list') {
+    if (nextMode === 'list' || nextMode === 'project') {
       fadeControls.set({ opacity: 1 })
       fadeControls.start({ opacity: 0 })
     }

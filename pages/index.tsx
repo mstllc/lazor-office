@@ -10,6 +10,7 @@ import { TypeProjectsListFields } from '@services/contentful/types'
 import { motion } from 'framer-motion'
 import { useRouter } from 'next/router'
 import { useMemo } from 'react'
+import ProjectTemplate from '@components/templates/ProjectTemplate'
 
 type TProps = {
   projectsList: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeProjectsListFields>
@@ -19,7 +20,7 @@ const Home: NextPage<TProps> = ({ projectsList }) => {
   const router = useRouter()
   const params = Object.fromEntries(new URLSearchParams(router.asPath.includes('?') ? router.asPath.split('?').pop() : ''))
   const category = params.category
-  const { mode, nextMode, transitioning, transitioningIn, transitionInComplete } = useProjectLayout()
+  const { mode, nextMode, projectSlug, transitioning, transitioningOut, transitioningIn, transitionInComplete } = useProjectLayout()
 
   const filteredProjectsList = useMemo(() => {
     let projects = projectsList.fields.projects
@@ -75,14 +76,20 @@ const Home: NextPage<TProps> = ({ projectsList }) => {
     return counts
   }, [projectsList])
 
+  const project = useMemo(() => {
+    return projectsList.fields.projects!.find(project => project.fields.slug === projectSlug)
+  }, [projectsList, projectSlug])
+
+  console.log(transitioning, mode, nextMode)
+
   return (
     <div className="relative">
-      {(mode === 'grid' || transitioning) &&
-        <div className="absolute lg:fixed lg:p-[132px] top-0 left-0 right-0 width-full" style={{ zIndex: transitioning && nextMode === 'grid' ? 2 : 1 }}>
+      {(mode === 'grid' || (transitioning && nextMode === 'grid')) &&
+        <div className="absolute lg:fixed lg:pt-[132px] top-0 left-0 right-0 width-full" style={{ zIndex: transitioning && nextMode === 'grid' ? 2 : 1 }}>
           <ProjectGridTemplate projectsList={filteredProjectsList} />
         </div>
       }
-      {(mode === 'list' || transitioning) &&
+      {(mode === 'list' || (transitioning && nextMode === 'list')) &&
         <motion.div
           className="relative"
           style={{ zIndex: transitioning && nextMode === 'list' ? 2 : 1 }}
@@ -91,6 +98,16 @@ const Home: NextPage<TProps> = ({ projectsList }) => {
           onAnimationComplete={transitionInComplete}
         >
           <ProjectListTemplate projectsList={filteredProjectsList} categoryCounts={categoryCounts} />
+        </motion.div>
+      }
+      {(mode === 'project' || (transitioning && nextMode === 'project')) &&
+        <motion.div
+          className="w-full top-0 left-0 fixed pt-[72px] lg:pt-[132px]"
+          animate={{ opacity: (!transitioning && mode === 'project') || (transitioningIn && nextMode === 'project') ? 1 : 0 }}
+          initial={{ opacity: (transitioning && nextMode === 'project' ? 0 : 1) }}
+          onAnimationComplete={transitionInComplete}
+        >
+          <ProjectTemplate project={project!} projectsList={projectsList} clip={mode !== 'project'} />
         </motion.div>
       }
     </div>

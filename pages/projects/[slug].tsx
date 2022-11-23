@@ -14,7 +14,7 @@ type TProps = {
 
 const ProjectPage: NextPage<TProps> = ({ slug, project, projectsList }) => {
   return (
-    <ProjectTemplate slug={slug} project={project} projectsList={projectsList} />
+    <ProjectTemplate project={project} projectsList={projectsList} />
   )
 }
 

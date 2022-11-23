@@ -48,6 +48,10 @@
 
       .image {
         min-height: unset;
+
+        &:hover {
+          cursor: url('/images/cursor.png') 37 37, auto;
+        }
       }
 
       .details {

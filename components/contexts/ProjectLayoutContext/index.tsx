@@ -2,15 +2,17 @@ import { useRouter } from 'next/router'
 import React, { createContext, useContext, useCallback, useState, useEffect } from 'react'
 import { disablePageScroll, enablePageScroll } from 'scroll-lock'
 
-export type TProjectLayoutContextLayoutMode = 'grid' | 'list'
+export type TProjectLayoutContextLayoutMode = 'grid' | 'list' | 'project'
 
 type TProjectLayoutContextValue = {
   mode: TProjectLayoutContextLayoutMode
   nextMode?: TProjectLayoutContextLayoutMode
+  projectSlug?: string
   transitioningOut: boolean
   transitioningIn: boolean
   transitioning: boolean
   setMode: (mode: TProjectLayoutContextLayoutMode, immediate?: boolean) => void
+  setProjectSlug: (slug: string) => void
   transitionOutComplete: () => void
   transitionInComplete: () => void
 }
@@ -21,6 +23,7 @@ const defaultProjectLayoutContextValue: TProjectLayoutContextValue = {
   transitioningIn: false,
   transitioning: false,
   setMode: () => { },
+  setProjectSlug: () => { },
   transitionOutComplete: () => { },
   transitionInComplete: () => { }
 }
@@ -35,7 +38,8 @@ function ProjectLayoutContextProvider({ children }: TProps) {
   const router = useRouter()
   const params = Object.fromEntries(new URLSearchParams(router.asPath.includes('?') ? router.asPath.split('?').pop() : ''))
   const [mode, setMode] = useState<TProjectLayoutContextLayoutMode>(params.mode === 'list' ? 'list' : 'grid')
-  const [nextMode, setNextMode] = useState<TProjectLayoutContextLayoutMode | undefined>(params.mode === 'list' ? 'list' : 'grid')
+  const [nextMode, setNextMode] = useState<TProjectLayoutContextLayoutMode | undefined>()
+  const [projectSlug, setProjectSlug] = useState<string | undefined>()
   const [transitioningOut, setTransitioningOut] = useState(false)
   const [transitioningIn, setTransitioningIn] = useState(false)
 
@@ -65,9 +69,14 @@ function ProjectLayoutContextProvider({ children }: TProps) {
     if (transitioningIn) {
       setTransitioningOut(false)
       setTransitioningIn(false)
-      nextMode && setMode(nextMode)
+      if (nextMode) {
+        setMode(nextMode)
+        if (nextMode === 'project' && projectSlug) {
+          router.push(`/projects/${projectSlug}`, undefined, { shallow: true })
+        }
+      }
     }
-  }, [transitioningIn, nextMode])
+  }, [transitioningIn, nextMode, projectSlug, router])
 
   useEffect(() => {
     if (transitioning) {
@@ -78,7 +87,7 @@ function ProjectLayoutContextProvider({ children }: TProps) {
   }, [transitioning])
 
   useEffect(() => {
-    if (router.pathname === '/' && router.query.mode !== mode) {
+    if (router.pathname === '/' && mode !== 'project' && router.query.mode !== mode) {
       router.replace({ pathname: '/', query: { ...params, ...router.query, mode } }, undefined, { shallow: true })
     }
   }, [mode, router, params])
@@ -86,11 +95,13 @@ function ProjectLayoutContextProvider({ children }: TProps) {
   const value = {
     mode,
     nextMode,
+    projectSlug,
     transitioningOut,
     transitioningIn,
     transitioning,
 
     setMode: setModeInternal,
+    setProjectSlug,
     transitionOutComplete,
     transitionInComplete
   }
