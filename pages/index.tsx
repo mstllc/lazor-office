@@ -80,8 +80,6 @@ const Home: NextPage<TProps> = ({ projectsList }) => {
     return projectsList.fields.projects!.find(project => project.fields.slug === projectSlug)
   }, [projectsList, projectSlug])
 
-  console.log(transitioning, mode, nextMode)
-
   return (
     <div className="relative">
       {(mode === 'grid' || (transitioning && nextMode === 'grid')) &&

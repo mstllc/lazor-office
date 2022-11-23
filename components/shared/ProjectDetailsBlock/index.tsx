@@ -9,7 +9,7 @@ type TProps = {
 }
 
 function ProjectDetailsBlock({ block }: TProps) {
-  console.log(block.fields.fields)
+
   return (
     <div className={styles.root}>
       <h2>Project Details</h2>

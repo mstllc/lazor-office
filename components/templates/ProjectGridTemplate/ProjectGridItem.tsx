@@ -29,7 +29,7 @@ function ProjectGridItem({ project, index, cropWidth, cropHeight, style }: TProp
     e.preventDefault()
 
     if (!transitioning) {
-      console.log('here')
+
       setProjectSlug(project.fields.slug)
       setMode('project')
     }
