@@ -71,12 +71,9 @@ function ProjectLayoutContextProvider({ children }: TProps) {
       setTransitioningIn(false)
       if (nextMode) {
         setMode(nextMode)
-        if (nextMode === 'project' && projectSlug) {
-          router.push(`/projects/${projectSlug}`, undefined, { shallow: true })
-        }
       }
     }
-  }, [transitioningIn, nextMode, projectSlug, router])
+  }, [transitioningIn, nextMode])
 
   useEffect(() => {
     if (transitioning) {

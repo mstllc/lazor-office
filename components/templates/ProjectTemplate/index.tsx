@@ -8,6 +8,7 @@ import ViewProjectsStack from '@components/shared/ViewProjectsStack'
 import { TypeProjectDetailsFields, TypeProjectFields, TypeProjectHotspotsBlockFields, TypeProjectImagesBlockFields, TypeProjectQuoteBlockFields, TypeProjectRecognitionBlockFields, TypeProjectsListFields } from '@services/contentful/types'
 import { Entry, EntryWithLinkResolutionAndWithoutUnresolvableLinks } from 'contentful'
 import Image from 'next/image'
+import { useRouter } from 'next/router'
 import React from 'react'
 
 import styles from './ProjectTemplate.module.scss'
@@ -19,6 +20,7 @@ type TProps = {
 }
 
 function ProjectTemplate({ project, projectsList, clip }: TProps) {
+  const router = useRouter()
   const crop = project.fields.heroImage!.fields.projectListCrop as { width: number, height: number }
 
   return (
@@ -32,6 +34,7 @@ function ProjectTemplate({ project, projectsList, clip }: TProps) {
         sizes="100vw"
         data-project-hero
         {...(clip && { style: { clipPath: `inset(${(100 - crop.height * 100) / 2}% ${(100 - crop.width * 100) / 2}%)` } })}
+        onTransitionEnd={() => router.push(`/projects/${project.fields.slug}`, undefined, { shallow: true })}
       />
 
       <div className={styles.header}>
