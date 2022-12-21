@@ -8,8 +8,28 @@ const client = Contentful.createClient({
   accessToken: config.CONTENTFUL_CONTENT_DELIVERY_API_ACCESS_TOKEN
 })
 
-export const getProjectsList = async () => {
-  const res = await client.withoutUnresolvableLinks.getEntries<TypeProjectsListFields>({ content_type: 'projectsList', include: 10 })
+const previewClient = Contentful.createClient({
+  space: config.CONTENTFUL_SPACE_ID,
+  accessToken: config.CONTENTFUL_CONTENT_PREVIEW_API_ACCESS_TOKEN,
+  host: 'preview.contentful.com'
+})
+
+const getClient = (preview: boolean = false) => {
+  return preview ? previewClient : client
+}
+
+export const getProjectsList = async (preview: boolean = false) => {
+  const res = await getClient(preview).withoutUnresolvableLinks.getEntries<TypeProjectsListFields>({ content_type: 'projectsList', include: 10 })
 
   return res.items[0]
+}
+
+export const getProjectBySlug = async (slug: any, preview: boolean = false) => {
+  const res = await getClient(preview).getEntries({
+    content_type: 'project',
+    limit: 1,
+    'fields.slug[in]': slug
+  })
+
+  return res.items.length > 0 && res.items[0]
 }
