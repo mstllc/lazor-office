@@ -115,7 +115,7 @@ const Home: NextPage<TProps> = ({ projectsList }) => {
 export default Home
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const projectsList = await contentful.getProjectsList()
+  const projectsList = await contentful.getProjectsList(context.preview)
 
   return {
     props: {

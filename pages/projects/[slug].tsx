@@ -34,7 +34,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 }
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const projectsList = await contentful.getProjectsList()
+  const projectsList = await contentful.getProjectsList(context.preview)
   const project = projectsList.fields.projects!.find(project => project.fields.slug === context.params!.slug)
 
   if (!project) {
