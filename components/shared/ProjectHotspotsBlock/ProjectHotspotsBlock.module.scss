@@ -89,6 +89,20 @@
       }
     }
   }
+
+  @screen lg {
+    @apply flex-row mb-24;
+
+    .image-wrapper {
+      &:first-of-type {
+        @apply w-[52%] pr-0;
+      }
+  
+      &:last-of-type {
+        @apply w-[48%] pl-24 mt-[24rem];
+      }
+    }
+  }
 }
 
 

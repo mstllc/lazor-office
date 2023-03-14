@@ -45,8 +45,10 @@ function ViewProjectsStack({ projectsList }: TProps) {
     <div className={styles.root}>
       <div className={styles.container}>
         <h2>View All Projects</h2>
-        <div className={styles.stack} style={{ height: `${vwHeight}vw` }}>
-          {projects}
+        <div className={styles['stack-wrapper']}>
+          <div className={styles.stack} style={{ paddingTop: `${vwHeight}%` }}>
+            {projects}
+          </div>
         </div>
         <p>Go to Index</p>
         <Icon name="DownCaret" />

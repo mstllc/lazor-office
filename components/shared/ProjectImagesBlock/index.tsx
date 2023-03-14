@@ -8,6 +8,7 @@ import styles from './ProjectImagesBlock.module.scss'
 import 'slick-carousel/slick/slick.css'
 import 'slick-carousel/slick/slick-theme.css'
 import Icon from '../Icon'
+import clsx from 'clsx'
 
 type TProps = {
   block: Entry<TypeProjectImagesBlockFields>
@@ -26,8 +27,12 @@ function ProjectImagesBlock({ block }: TProps) {
   }, [sliderRef])
 
   if (block.fields.images.length === 1) {
+    const hasText = block.fields.headline || block.fields.body
+    const textOnLeft = !!block.fields.textOnLeft
+    const singleRootClassname = clsx(styles['single-root'], hasText && styles['has-text'], textOnLeft && styles['text-on-left'])
+
     return (
-      <div className={styles['single-root']}>
+      <div className={singleRootClassname}>
         <div className={styles.image}>
           <Image
             src={`https:${block.fields.images[0].fields.file!.url}`}
@@ -37,10 +42,12 @@ function ProjectImagesBlock({ block }: TProps) {
             sizes='100vw'
           />
         </div>
-        {(block.fields.headline || block.fields.body) && (
+        {hasText && (
           <div className={styles.content}>
-            {block.fields.headline && <h2>{block.fields.headline}</h2>}
-            {block.fields.body && <p>{block.fields.body}</p>}
+            <div className={styles['content-inner']}>
+              {block.fields.headline && <h2>{block.fields.headline}</h2>}
+              {block.fields.body && <p>{block.fields.body}</p>}
+            </div>
           </div>
         )}
       </div>
@@ -71,13 +78,15 @@ function ProjectImagesBlock({ block }: TProps) {
         </Slider>
         <button onClick={onNextSlideClick}><Icon name="RightCaret" /></button>
       </div>
-      <p className={styles.pagination}>{currentSlide + 1}/{block.fields.images.length}</p>
-      {(block.fields.headline || block.fields.body) && (
-        <div className={styles.content}>
-          {block.fields.headline && <h2>{block.fields.headline}</h2>}
-          {block.fields.body && <p>{block.fields.body}</p>}
-        </div>
-      )}
+      <div className={styles.below}>
+        <p className={styles.pagination}>{currentSlide + 1}/{block.fields.images.length}</p>
+        {(block.fields.headline || block.fields.body) && (
+          <div className={styles.content}>
+            {block.fields.headline && <h2>{block.fields.headline}</h2>}
+            {block.fields.body && <p>{block.fields.body}</p>}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

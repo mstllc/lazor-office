@@ -4,9 +4,12 @@
   .container {
     @apply flex flex-col items-center border-t border-black pt-10;
 
+    .stack-wrapper {
+      @apply w-full;
+    }
+
     .stack {
-      position: relative;
-      width: 100%;
+      @apply relative w-full my-5;
 
       .project {
         position: absolute;
@@ -20,6 +23,24 @@
     svg {
       width: 56px;
       height: 56px;
+    }
+  }
+
+  @screen lg {
+    @apply px-10;
+
+    .container {
+      h2 {
+        @apply text-5xl;
+      }
+
+      .stack-wrapper {
+        @apply max-w-[30%];
+      }
+  
+      .stack {
+        @apply my-10;
+      }
     }
   }
 }
