@@ -41,6 +41,10 @@
   }
 
   @screen lg {
+    h2 {
+      @apply text-5xl;
+    }
+    
     .header {
       @apply px-16;
 

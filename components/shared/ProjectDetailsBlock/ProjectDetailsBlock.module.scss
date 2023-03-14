@@ -12,6 +12,28 @@
       @apply w-1/2 mb-4;
     }
   }
+
+  @screen lg {
+    @apply px-16;
+
+    h2 {
+      @apply px-16 text-5xl;
+      font-size: 3rem !important;
+      line-height: 1 !important;
+    }
+    
+    .fields {
+      @apply px-16;
+
+      .field {
+        @apply w-1/4 pr-10 mb-8;
+        
+        p {
+          @apply text-2xl;
+        }
+      }
+    }
+  }
 }
 
 

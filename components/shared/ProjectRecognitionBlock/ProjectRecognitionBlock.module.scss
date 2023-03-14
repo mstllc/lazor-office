@@ -8,6 +8,25 @@
       @apply w-1/2 px-6 mb-6;
     }
   }
+
+  @screen lg {
+    @apply px-16 text-left;
+
+    .recognitions {
+      display: grid;
+      grid-template-columns: repeat(4, auto);
+      grid-column-gap: 80px;
+      grid-row-gap: 40px;
+
+      .recognition {
+        @apply w-full px-0 mb-0 text-center;
+
+        p {
+          @apply text-2xl;
+        }
+      }
+    }
+  }
 }
 
 

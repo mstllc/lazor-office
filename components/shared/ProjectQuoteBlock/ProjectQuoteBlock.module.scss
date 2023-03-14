@@ -8,6 +8,19 @@
   p.attribution {
     @apply mt-10 text-2xl;
   }
+
+  @screen lg {
+    max-width: 50%;
+    margin: auto;
+
+    h3.quote {
+      @apply text-7xl;
+    }
+
+    p.attribution {
+      @apply text-3xl;
+    }
+  }
 }
 
 
