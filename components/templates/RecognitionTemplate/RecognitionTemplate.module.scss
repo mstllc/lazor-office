@@ -1,0 +1,25 @@
+.root {
+  h1 {
+    @apply text-5xl px-5 mt-5 mb-10 font-light;
+  }
+
+  .container {
+    @apply px-5 pb-8;
+  }
+
+  @screen lg {
+    @apply text-xl;
+
+    h1 {
+      @apply text-8xl px-16 py-16;
+    }
+
+    .filter-bar {
+      @apply px-16 pb-16;
+    }
+
+    .container {
+      @apply px-16;
+    }
+  }
+}

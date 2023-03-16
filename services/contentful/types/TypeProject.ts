@@ -16,7 +16,7 @@ export interface TypeProjectFields {
     location: Contentful.EntryFields.Symbol;
     headline: Contentful.EntryFields.Symbol;
     intro: Contentful.EntryFields.Text;
-    blocks: Contentful.Entry<TypeProjectDetailsFields | TypeProjectHotspotsBlockFields | TypeProjectImagesBlockFields | TypeProjectQuoteBlockFields | TypeProjectRecognitionBlockFields>[];
+    blocks?: Contentful.Entry<TypeProjectDetailsFields | TypeProjectHotspotsBlockFields | TypeProjectImagesBlockFields | TypeProjectQuoteBlockFields | TypeProjectRecognitionBlockFields>[];
 }
 
 export type TypeProject = Contentful.Entry<TypeProjectFields>;

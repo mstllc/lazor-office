@@ -64,6 +64,14 @@ function RightCaretIcon() {
   )
 }
 
+function LinkIcon() {
+  return (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M22 2L17 2.625L18.5238 4.14874L11.9213 10.75L13.25 12.0775L19.8513 5.47624L21.375 6.99999L22 2ZM3.25006 3.87499C2.91641 3.87192 2.59445 3.99775 2.35131 4.22624C2.1227 4.46932 1.99686 4.79132 2.00006 5.12499V20.7499C1.99699 21.0836 2.12282 21.4055 2.35131 21.6487C2.59438 21.8773 2.91639 22.0031 3.25006 21.9999H18.875C19.0409 22.0063 19.2062 21.9782 19.3607 21.9177C19.5153 21.8571 19.6556 21.7652 19.7729 21.6479C19.8903 21.5305 19.9821 21.3902 20.0427 21.2357C20.1033 21.0812 20.1313 20.9158 20.125 20.7499V11.375H18.25V20.1249H3.87505V5.74999H13.25V3.87499H3.25006Z" fill="currentColor" />
+    </svg>
+  )
+}
+
 export const Icons = {
   Plus: PlusIcon,
   Gallery: GalleryIcon,
@@ -71,7 +79,8 @@ export const Icons = {
   DownCaret: DownCaretIcon,
   UpCaret: UpCaretIcon,
   LeftCaret: LeftCaretIcon,
-  RightCaret: RightCaretIcon
+  RightCaret: RightCaretIcon,
+  Link: LinkIcon
 }
 
 export type TIconName = keyof typeof Icons

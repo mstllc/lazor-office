@@ -11,26 +11,9 @@
         @apply hidden lg:block;
       }
     }
-    
-    .filter-bar {
-      @apply flex w-full items-center justify-between px-6 py-2 border-y;
-    }
-    
-    .filter-menu {
-      @apply flex flex-col w-full px-6 overflow-hidden;
 
-      .filter-options {
-        @apply flex flex-col text-xl gap-2 my-2;
-
-        sup {
-          font-size: 50%;
-          top: -1em;
-        }
-      }
-
-      .view-map {
-        @apply flex mr-auto bg-black text-white py-4 px-8 text-xl;
-      }
+    .view-map {
+      @apply flex bg-black text-white py-4 px-8 text-xl;
     }
   }
 
@@ -48,21 +31,8 @@
         @apply p-0 text-left text-8xl my-10;
       }
 
-      .filter-bar {
-        @apply hidden;
-      }
-
-      .filter-menu {
-        height: auto !important;
-        @apply flex-row justify-between items-end px-0;
-
-        .filter-options {
-          @apply flex-row text-3xl gap-16;
-        }
-
-        .view-map {
-          @apply py-5 px-10 m-0;
-        }
+      .view-map {
+        @apply py-5 px-10;
       }
     }
 

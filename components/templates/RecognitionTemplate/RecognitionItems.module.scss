@@ -1,0 +1,64 @@
+.root {
+  @apply mt-8;
+
+  h2 {
+    @apply text-3xl py-4 border-b;
+  }
+
+  .item {
+    @apply mt-9 w-[65%];
+
+    .image {
+      @apply pb-4;
+    }
+
+    .name {
+      @apply relative;
+
+      a {
+        text-decoration: none;
+      }
+
+      svg {
+        position: absolute;
+        top: 1px;
+        right: -18px;
+        display: inline-block;
+        width: 18px;
+        height: auto;
+        margin-left: 4px;
+      }
+    }
+
+    p {
+      @apply text-sm mb-4 mt-5;
+    }
+
+    a {
+      @apply underline;
+    }
+  }
+
+  @screen lg {
+    h2 {
+      @apply text-5xl;
+    }
+    .items {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 4rem;
+
+      .item {
+        @apply w-full;
+
+        h3 {
+          @apply text-2xl;
+        }
+
+        p {
+          @apply text-xl;
+        }
+      }
+    }
+  }
+}

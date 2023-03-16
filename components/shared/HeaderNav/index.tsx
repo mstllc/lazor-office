@@ -48,7 +48,9 @@ function HeaderNav() {
 
       <nav className={styles.nav}>
         {DesktopHeaderNavLinks.map((link, index) => (
-          <a key={index} href={link.href}>{link.label}</a>
+          <Link key={index} href={link.href}>
+            <a>{link.label}</a>
+          </Link>
         ))}
       </nav>
 

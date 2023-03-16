@@ -7,3 +7,4 @@ export type { TypeProjectQuoteBlock, TypeProjectQuoteBlockFields } from "./TypeP
 export type { TypeProjectRecognitionBlock, TypeProjectRecognitionBlockFields } from "./TypeProjectRecognitionBlock";
 export type { TypeProjectsList, TypeProjectsListFields } from "./TypeProjectsList";
 export type { TypeRecognition, TypeRecognitionFields } from "./TypeRecognition";
+export type { TypeRecognitionList, TypeRecognitionListFields } from "./TypeRecognitionList";
