@@ -1,7 +1,7 @@
 import * as Contentful from 'contentful'
 import config from '@config'
 
-import { TypeProjectsListFields, TypeRecognitionListFields } from './types'
+import { TypeProjectsListFields, TypeRecognitionListFields, TypeWhoWeArePageFields } from './types'
 
 const client = Contentful.createClient({
   space: config.CONTENTFUL_SPACE_ID,
@@ -36,6 +36,12 @@ export const getProjectBySlug = async (slug: any, preview: boolean = false) => {
 
 export const getRecognitionsList = async (preview: boolean = false) => {
   const res = await getClient(preview).withoutUnresolvableLinks.getEntries<TypeRecognitionListFields>({ content_type: 'recognitionList', include: 10 })
+
+  return res.items[0]
+}
+
+export const getWhoWeArePage = async (preview: boolean = false) => {
+  const res = await getClient(preview).withoutUnresolvableLinks.getEntries<TypeWhoWeArePageFields>({ content_type: 'whoWeArePage', include: 10 })
 
   return res.items[0]
 }

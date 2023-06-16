@@ -1,0 +1,144 @@
+.root {
+  @apply mt-8;
+
+  .headline {
+    @apply px-12;
+  }
+
+  .body {
+    @apply px-5 mt-10 mb-14;
+
+    p {
+      @apply mb-4;
+    }
+  }
+
+  .slider {
+    @apply relative;
+
+    button {
+      @apply text-white;
+
+      &:first-of-type {
+        @apply absolute;
+        top: 50%;
+        left: 0;
+        z-index: 2;
+        transform: translateY(-50%);
+      }
+
+      &:last-of-type {
+        @apply absolute;
+        top: 50%;
+        right: 0;
+        z-index: 2;
+        transform: translateY(-50%);
+      }
+    }
+
+    .slide {
+      @apply relative;
+
+      .caption {
+        @apply absolute inset-0 flex items-center justify-center text-white;
+      }
+    }
+  }
+
+  .bios {
+    @apply mx-5;
+
+    .bio {
+      @apply mb-16;
+
+      .title {
+        @apply text-xl;
+      }
+
+      .name {
+        @apply text-3xl;
+      }
+
+      .image {
+        @apply mt-4 mb-6;
+      }
+
+      .quote {
+        @apply text-2xl mb-12;
+      }
+
+      .detail {
+        .details {
+          @apply mb-10;
+
+          p:nth-of-type(odd) {
+            @apply font-medium;
+          }
+
+          p:nth-of-type(even) {
+            @apply mb-4;
+          }
+        }
+
+        .bio-body {
+          p {
+            @apply mb-4;
+          }
+        }
+      }
+    }
+  }
+
+  @screen lg {
+    .headline {
+      @apply px-16;
+    }
+
+    .body {
+      @apply w-1/2 self-end text-xl px-16 mb-16;
+
+      p {
+        @apply mr-12;
+      }
+    }
+
+    .slider {
+      @apply mx-12 mb-16;
+
+      button {
+        svg {
+          height: 80px;
+          width: auto;
+        }
+      }
+
+      .slide .caption {
+        @apply text-5xl;
+      }
+    }
+
+    .bios {
+      @apply flex flex-row mx-0 mt-16;
+
+      .bio {
+        @apply w-1/2 mx-12;
+
+        .title {
+          @apply text-5xl mb-4;
+        }
+
+        .name {
+          @apply text-8xl font-light mb-4;
+        }
+
+        .detail {
+          @apply flex flex-row;
+
+          .bio-body {
+            @apply w-3/4 ml-auto;
+          }
+        }
+      }
+    }
+  }
+}

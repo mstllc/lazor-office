@@ -4,10 +4,6 @@
     transition: clip-path 0.5s ease-out;
   }
 
-  h1 {
-    @apply font-light text-4xl;
-  }
-
   h2 {
     @apply text-3xl;
   }
@@ -18,18 +14,6 @@
 
   .header {
     @apply px-5;
-
-    h1 {
-      @apply inline-block min-w-[60%];
-
-      &:first-of-type {
-        @apply text-right mt-10;
-      }
-
-      &:last-of-type {
-        @apply text-left float-right mb-10;
-      }
-    }
 
     .intro {
       @apply clear-both;
@@ -47,18 +31,6 @@
     
     .header {
       @apply px-16;
-
-      h1 {
-        @apply text-9xl inline-block min-w-[60%];
-
-        &:first-of-type {
-          @apply mt-24;
-        }
-  
-        &:last-of-type {
-          @apply mb-24;
-        }
-      }
     }
     
     .intro {

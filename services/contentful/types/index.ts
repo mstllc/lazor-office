@@ -1,3 +1,5 @@
+export type { TypeBio, TypeBioFields } from "./TypeBio";
+export type { TypeCaptionedImage, TypeCaptionedImageFields } from "./TypeCaptionedImage";
 export type { TypeHeroImageWithCrops, TypeHeroImageWithCropsFields } from "./TypeHeroImageWithCrops";
 export type { TypeProject, TypeProjectFields } from "./TypeProject";
 export type { TypeProjectDetails, TypeProjectDetailsFields } from "./TypeProjectDetails";
@@ -8,3 +10,4 @@ export type { TypeProjectRecognitionBlock, TypeProjectRecognitionBlockFields } f
 export type { TypeProjectsList, TypeProjectsListFields } from "./TypeProjectsList";
 export type { TypeRecognition, TypeRecognitionFields } from "./TypeRecognition";
 export type { TypeRecognitionList, TypeRecognitionListFields } from "./TypeRecognitionList";
+export type { TypeWhoWeArePage, TypeWhoWeArePageFields } from "./TypeWhoWeArePage";

@@ -1,0 +1,41 @@
+.root {
+  h1 {
+    @apply text-4xl font-light my-10;
+
+    span {
+      @apply inline-block min-w-[60%];
+
+      &:nth-of-type(odd) {
+        @apply text-right;
+      }
+
+      &:nth-of-type(even) {
+        @apply text-left float-right;
+      }
+    }
+
+    &:after {
+      content: '';
+      clear: both;
+      display: table;
+    }
+  }
+
+  @screen lg {
+    h1 {
+      @apply text-9xl my-24;
+
+      span {
+        @apply inline-block min-w-[60%];
+      }
+    }
+  }
+
+  h1.xs {
+    @apply block lg:hidden;
+  }
+
+  h1.lg {
+    @apply hidden lg:block;
+  }
+}

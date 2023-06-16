@@ -5,6 +5,7 @@ import ProjectImagesBlock from '@components/shared/ProjectImagesBlock'
 import ProjectQuoteBlock from '@components/shared/ProjectQuoteBlock'
 import ProjectRecognitionBlock from '@components/shared/ProjectRecognitionBlock'
 import ViewProjectsStack from '@components/shared/ViewProjectsStack'
+import StaggeredHeadline from '@components/shared/StaggeredHeadline'
 import { TypeProjectDetailsFields, TypeProjectFields, TypeProjectHotspotsBlockFields, TypeProjectImagesBlockFields, TypeProjectQuoteBlockFields, TypeProjectRecognitionBlockFields, TypeProjectsListFields } from '@services/contentful/types'
 import { Entry, EntryWithLinkResolutionAndWithoutUnresolvableLinks } from 'contentful'
 import Image from 'next/image'
@@ -38,8 +39,7 @@ function ProjectTemplate({ project, projectsList, clip }: TProps) {
       />
 
       <div className={styles.header}>
-        <h1>{project.fields.projectName}–</h1>
-        <h1>{project.fields.location}</h1>
+        <StaggeredHeadline lines={[`${project.fields.projectName}–`, project.fields.location]} />
         <div className={styles.intro}>
           <h3>{project.fields.headline}</h3>
           {project.fields.intro.split(/\r?\n/).filter(text => !!text.trim()).map((text, index) => (
