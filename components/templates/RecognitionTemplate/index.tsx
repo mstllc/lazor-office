@@ -24,7 +24,6 @@ type TProps = {
 }
 
 const RecognitionTemplate = ({ filteredRecognitionsList, categoryCounts }: TProps) => {
-  console.log(filteredRecognitionsList, categoryCounts)
   const router = useRouter()
 
   const onFilterChange = useCallback((category: string) => {

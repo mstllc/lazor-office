@@ -1,7 +1,8 @@
 import * as Contentful from 'contentful'
 import config from '@config'
+import { unset } from 'lodash'
 
-import { TypeProjectsListFields, TypeRecognitionListFields, TypeWhoWeArePageFields } from './types'
+import { TypeProjectRecognitionBlockFields, TypeProjectsListFields, TypeRecognitionListFields, TypeWhoWeArePageFields } from './types'
 
 const client = Contentful.createClient({
   space: config.CONTENTFUL_SPACE_ID,
@@ -21,7 +22,19 @@ const getClient = (preview: boolean = false) => {
 export const getProjectsList = async (preview: boolean = false) => {
   const res = await getClient(preview).withoutUnresolvableLinks.getEntries<TypeProjectsListFields>({ content_type: 'projectsList', include: 10 })
 
-  return res.items[0]
+  const list = res.items[0]
+
+  for (const project of list.fields.projects || []) {
+    for (const block of (project.fields.blocks || []) as Contentful.Entry<TypeProjectRecognitionBlockFields>[]) {
+      if (block.sys.contentType.sys.id === 'projectRecognitionBlock') {
+        for (const recognition of block.fields.recognitions) {
+          unset(recognition, 'fields.project')
+        }
+      }
+    }
+  }
+
+  return list
 }
 
 export const getProjectBySlug = async (slug: any, preview: boolean = false) => {
@@ -35,7 +48,7 @@ export const getProjectBySlug = async (slug: any, preview: boolean = false) => {
 }
 
 export const getRecognitionsList = async (preview: boolean = false) => {
-  const res = await getClient(preview).withoutUnresolvableLinks.getEntries<TypeRecognitionListFields>({ content_type: 'recognitionList', include: 10 })
+  const res = await getClient(preview).withoutUnresolvableLinks.getEntries<TypeRecognitionListFields>({ content_type: 'recognitionList', include: 2 })
 
   return res.items[0]
 }

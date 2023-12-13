@@ -3,6 +3,7 @@ import { TypeRecognitionFields } from '@services/contentful/types'
 import { Entry } from 'contentful'
 import Image from 'next/image'
 import styles from './RecognitionItems.module.scss'
+import Link from 'next/link'
 
 type TProps = {
   title: string
@@ -16,15 +17,26 @@ const RecognitionItems = ({ title, items }: TProps) => {
       <div className={styles.items}>
         {items.map((item, index) => (
           <div key={index} className={styles.item}>
-            <div className={styles.image}>
-              <Image
-                src={`https:${item.fields.image.fields.file!.url}`}
-                alt={item.fields.image.fields.title}
-                width={item.fields.image.fields.file!.details.image?.width}
-                height={item.fields.image.fields.file!.details.image?.height}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
-            </div>
+            {item.fields.link
+              ? <a href={item.fields.link} target="_blank" rel="noreferrer"><div className={styles.image}>
+                <Image
+                  src={`https:${item.fields.image.fields.file!.url}`}
+                  alt={item.fields.image.fields.title}
+                  width={item.fields.image.fields.file!.details.image?.width}
+                  height={item.fields.image.fields.file!.details.image?.height}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div></a>
+              : <div className={styles.image}>
+                <Image
+                  src={`https:${item.fields.image.fields.file!.url}`}
+                  alt={item.fields.image.fields.title}
+                  width={item.fields.image.fields.file!.details.image?.width}
+                  height={item.fields.image.fields.file!.details.image?.height}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                />
+              </div>
+            }
             <div className={styles.name}>
               {item.fields.link
                 ? <a href={item.fields.link} target="_blank" rel="noreferrer"><h3>{item.fields.name}<Icon name="Link" /></h3></a>
@@ -33,7 +45,11 @@ const RecognitionItems = ({ title, items }: TProps) => {
             </div>
             <h3>{item.fields.year}</h3>
             <p>{item.fields.body}</p>
-            <a href="#"><h3>View Project</h3></a>
+            {item.fields.project &&
+              <Link href={`/projects/${item.fields.project.fields.slug}`}>
+                <a>View Project</a>
+              </Link>
+            }
           </div>
         ))}
       </div>
