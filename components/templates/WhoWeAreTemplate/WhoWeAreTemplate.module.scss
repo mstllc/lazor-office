@@ -59,8 +59,14 @@
         @apply text-3xl;
       }
 
-      .image {
-        @apply mt-4 mb-6;
+      .imageContainer {
+        @apply relative mt-4 mb-6 w-full;
+        height: 0px;
+        padding-bottom: 135%;
+
+        .image {
+          @apply absolute inset-0;
+        }
       }
 
       .quote {
@@ -118,10 +124,10 @@
     }
 
     .bios {
-      @apply flex flex-row mx-0 mt-16;
+      @apply flex flex-row flex-wrap mx-0 mt-16;
 
       .bio {
-        @apply w-1/2 mx-12;
+        @apply w-1/2 px-12;
 
         .title {
           @apply text-5xl mb-4;

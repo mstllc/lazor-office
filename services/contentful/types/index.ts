@@ -1,5 +1,6 @@
 export type { TypeBio, TypeBioFields } from "./TypeBio";
 export type { TypeCaptionedImage, TypeCaptionedImageFields } from "./TypeCaptionedImage";
+export type { TypeContactUsPage, TypeContactUsPageFields } from "./TypeContactUsPage";
 export type { TypeHeroImageWithCrops, TypeHeroImageWithCropsFields } from "./TypeHeroImageWithCrops";
 export type { TypeProject, TypeProjectFields } from "./TypeProject";
 export type { TypeProjectDetails, TypeProjectDetailsFields } from "./TypeProjectDetails";

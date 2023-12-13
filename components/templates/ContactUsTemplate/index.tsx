@@ -2,30 +2,45 @@ import FooterNav from '@components/shared/FooterNav'
 import styles from './ContactUsTemplate.module.scss'
 import Icon from '@components/shared/Icon'
 import Image from 'next/image'
+import { TypeContactUsPageFields } from '@services/contentful/types'
+import { EntryWithLinkResolutionAndWithoutUnresolvableLinks } from 'contentful'
 
-const ContactUsTemplate = () => {
+type TProps = {
+  pageData: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeContactUsPageFields>
+}
+
+const ContactUsTemplate = ({ pageData }: TProps) => {
   return (
     <div className={styles.root}>
       <div className={styles.container}>
         <div className={styles.header}>
           <div>
             <h1>Contact Us –</h1>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed fermentum arcu, </p>
+            <p>{pageData.fields.introCopy}</p>
             <button>Start Your Project <Icon name="RightCaret" /></button>
           </div>
           <div className={styles.address}>
             <p>Lazor/Office</p>
-            <p>45 University Avenue SE<br />#413<br />Minneapolis, MN 55414</p>
-            <p>612.812.3548<br />Info@lazoroffice.com</p>
+            <p dangerouslySetInnerHTML={{ __html: pageData.fields.address.replace(/\n/g, '<br>') }} />
+            <p>
+              <a href={`tel:${pageData.fields.phoneNumber}`}>{pageData.fields.phoneNumber}</a>
+              <br />
+              <a href={`mailto:${pageData.fields.emailAddress}`}>{pageData.fields.emailAddress}</a>
+            </p>
           </div>
         </div>
-        <div className={styles.map}>
-          <Image
-            src="https://images.ctfassets.net/aux4g6fwhyxo/2MGLa1NXRkRJA96Okr3TFq/d1a81b5bb670b2cfa74a68a7878c02cf/Screen_Shot_2021-02-22_at_9.25.51_PM.png"
-            alt="contact us map"
-            width={1798}
-            height={780}
-          />
+        <div className={styles.mapContainer}>
+          <div className={styles.map}>
+            <Image
+              src={`https:${pageData.fields.mapImage!.fields.file!.url}`}
+              alt={pageData.fields.mapImage!.fields.title}
+              width={pageData.fields.mapImage!.fields.file!.details.image!.width}
+              height={pageData.fields.mapImage!.fields.file!.details.image!.height}
+              layout='fill'
+              objectFit='cover'
+              objectPosition='center center'
+            />
+          </div>
         </div>
       </div>
 

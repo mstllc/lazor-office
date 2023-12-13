@@ -79,14 +79,18 @@ const WhoWeAreTemplate = ({ pageData, projectsList }: TProps) => {
           <div key={index} className={styles.bio}>
             <p className={styles.title}>{field.fields.title}</p>
             <h6 className={styles.name}>{field.fields.name}</h6>
-            <div className={styles.image}>
-              <Image
-                src={`https:${field.fields.image.fields.file!.url}`}
-                alt={field.fields.image!.fields.title}
-                width={field.fields.image.fields.file!.details.image?.width}
-                height={field.fields.image.fields.file!.details.image?.height}
-                sizes="(max-width: 1024px) 100vw, 50vw"
-              />
+            <div className={styles.imageContainer}>
+              <div className={styles.image}>
+                <Image
+                  src={`https:${field.fields.image.fields.file!.url}`}
+                  alt={field.fields.image!.fields.title}
+                  width={field.fields.image.fields.file!.details.image?.width}
+                  height={field.fields.image.fields.file!.details.image?.height}
+                  sizes="(max-width: 1024px) 100vw, 50vw"
+                  layout="fill"
+                  objectFit='cover'
+                />
+              </div>
             </div>
             {field.fields.quote && <p className={styles.quote}>‘{field.fields.quote}’</p>}
             <div className={styles.detail}>

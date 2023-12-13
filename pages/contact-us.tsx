@@ -1,10 +1,27 @@
 import ContactUsTemplate from '@components/templates/ContactUsTemplate'
-import { NextPage } from 'next'
+import { GetStaticProps, NextPage } from 'next'
+import * as contentful from '@services/contentful'
+import { TypeContactUsPageFields } from '@services/contentful/types'
+import { EntryWithLinkResolutionAndWithoutUnresolvableLinks } from 'contentful'
 
-const ContactUsPage: NextPage = () => {
+type TProps = {
+  contactUsPage: EntryWithLinkResolutionAndWithoutUnresolvableLinks<TypeContactUsPageFields>
+}
+
+const ContactUsPage: NextPage<TProps> = ({ contactUsPage }) => {
   return (
-    <ContactUsTemplate />
+    <ContactUsTemplate pageData={contactUsPage} />
   )
 }
 
 export default ContactUsPage
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  const contactUsPage = await contentful.getContactUsPage(context.preview)
+
+  return {
+    props: {
+      contactUsPage
+    }
+  }
+}

@@ -27,6 +27,22 @@
     }
   }
 
+  .mapContainer {
+    position: relative;
+    width: 100%;
+    height: 0px;
+    padding-bottom: 100%;
+
+    .map {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      overflow: hidden;
+    }
+  }
+
   @screen lg {
     @apply text-xl;
 
@@ -62,6 +78,10 @@
           @apply ml-6;
         }
       }
+    }
+
+    .mapContainer {
+      padding-bottom: 30%;
     }
   }
 }
