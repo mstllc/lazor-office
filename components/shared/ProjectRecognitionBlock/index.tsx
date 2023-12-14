@@ -19,13 +19,23 @@ function ProjectRecognitionBlock({ block }: TProps) {
 
           return (
             <div key={recognition.sys.id} className={styles.recognition}>
-              <Image
-                src={`https:${image.fields.file!.url}`}
-                alt={image.fields.title}
-                width={image.fields.file!.details.image?.width}
-                height={image.fields.file!.details.image?.height}
-                sizes="(max-width: 1024px) 50vw, 25vw"
-              />
+              {recognition.fields.link ?
+                <a href={recognition.fields.link} target="_blank" rel="noopener noreferrer">
+                  <Image
+                    src={`https:${image.fields.file!.url}`}
+                    alt={image.fields.title}
+                    width={image.fields.file!.details.image?.width}
+                    height={image.fields.file!.details.image?.height}
+                    sizes="(max-width: 1024px) 50vw, 25vw"
+                  />
+                </a> :
+                <Image
+                  src={`https:${image.fields.file!.url}`}
+                  alt={image.fields.title}
+                  width={image.fields.file!.details.image?.width}
+                  height={image.fields.file!.details.image?.height}
+                  sizes="(max-width: 1024px) 50vw, 25vw"
+                />}
               <p>{recognition.fields.name}</p>
             </div>
           )
