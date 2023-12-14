@@ -6,6 +6,7 @@ export type TProjectLayoutContextLayoutMode = 'grid' | 'list' | 'project'
 
 type TProjectLayoutContextValue = {
   mode: TProjectLayoutContextLayoutMode
+  listMode: TProjectLayoutContextLayoutMode
   nextMode?: TProjectLayoutContextLayoutMode
   projectSlug?: string
   transitioningOut: boolean
@@ -19,6 +20,7 @@ type TProjectLayoutContextValue = {
 
 const defaultProjectLayoutContextValue: TProjectLayoutContextValue = {
   mode: 'grid',
+  listMode: 'grid',
   transitioningOut: false,
   transitioningIn: false,
   transitioning: false,
@@ -38,6 +40,7 @@ function ProjectLayoutContextProvider({ children }: TProps) {
   const router = useRouter()
   const params = Object.fromEntries(new URLSearchParams(router.asPath.includes('?') ? router.asPath.split('?').pop() : ''))
   const [mode, setMode] = useState<TProjectLayoutContextLayoutMode>(params.mode === 'list' ? 'list' : 'grid')
+  const [listMode, setListMode] = useState<TProjectLayoutContextLayoutMode>(mode)
   const [nextMode, setNextMode] = useState<TProjectLayoutContextLayoutMode | undefined>()
   const [projectSlug, setProjectSlug] = useState<string | undefined>()
   const [transitioningOut, setTransitioningOut] = useState(false)
@@ -89,8 +92,15 @@ function ProjectLayoutContextProvider({ children }: TProps) {
     }
   }, [mode, router, params])
 
+  useEffect(() => {
+    if (mode !== 'project') {
+      setListMode(mode)
+    }
+  }, [mode])
+
   const value = {
     mode,
+    listMode,
     nextMode,
     projectSlug,
     transitioningOut,

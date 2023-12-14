@@ -14,7 +14,7 @@ import { useRouter } from 'next/router'
 function HeaderNav() {
   const router = useRouter()
   const [open, setOpen] = useState(false)
-  const { mode, nextMode, setMode, transitioning } = useProjectLayout()
+  const { mode, listMode, setMode, transitioning } = useProjectLayout()
 
   const onHomePage = useMemo(() => {
     return router.pathname === '/'
@@ -42,8 +42,8 @@ function HeaderNav() {
       </div>
 
       <div className={styles.logo}>
-        <Link href="/?mode=grid"><a className="lg:hidden" onClick={() => { setMode('grid', true); setOpen(false); }}><TextLogo /></a></Link>
-        <Link href="/"><a className="hidden lg:inline"><TextLogo /></a></Link>
+        <Link href={`/?mode=${listMode}`}><a className="lg:hidden" onClick={() => { setMode(listMode, true); setOpen(false); }}><TextLogo /></a></Link>
+        <Link href={`/?mode=${listMode}`}><a className="hidden lg:inline" onClick={() => { setMode(listMode, true); }}><TextLogo /></a></Link>
       </div>
 
       <nav className={styles.nav}>
